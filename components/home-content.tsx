@@ -73,28 +73,14 @@ export function HomeContent() {
               >
                 Lista de Presentes
               </Link>
-              <Link
-                href={addPhoneToUrl("/informacoes")}
-                className="text-white hover:text-accent transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Informações Gerais
-              </Link>
-              <Link
-                href={addPhoneToUrl("/nossa-historia")}
-                className="text-white hover:text-accent transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Nossa História
-              </Link>
             </div>
           </div>
         )}
       </nav>
 
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 text-center text-white">
-        <div className="mb-8">
-          <div className="mb-4 flex justify-center">
+      <div className="relative z-10 flex flex-col items-center justify-center px-4 text-center text-white mt-16">
+        <div className="mb-8 mt-16">
+          <div className="mb-4 mt-16 flex justify-center">
             <Image
               src="/monograma-white.png"
               alt="Monograma Rafaela & Lucas"
@@ -104,23 +90,23 @@ export function HomeContent() {
             />
           </div>
 
-          <h1 className="font-sans text-lg tracking-[0.2em] font-light mb-2">RAFAELA & LUCAS</h1>
+          <h1 className="font-sans text-sm font-bold tracking-[0.2em] mb-2">RAFAELA <span className="text-primary">&amp;</span> LUCAS</h1>
 
-          <p className="font-sans text-sm tracking-[0.15em] font-light mb-2">SAVE THE DATE</p>
+          <p className="font-sans text-2xl tracking-[0.15em] font-light mb-4 mt-6">SAVE THE DATE</p>
 
-          <p className="font-sans text-lg tracking-[0.1em] font-light mb-4">20.04.26</p>
+          <p className="font-sans text-sm tracking-[0.1em] font-light mb-4">20.04.26</p>
         </div>
       </div>
 
       <div className="absolute bottom-8 left-4 right-4 z-10 space-y-3">
         <Link href={addPhoneToUrl("/confirmar-presenca")}>
-          <button className="w-full bg-accent text-primary py-4 rounded-none font-medium text-lg">
+          <button className="w-full bg-accent text-primary-foreground py-2 mb-2 rounded-none font-medium text-base">
             Confirmar Presença
           </button>
         </Link>
 
         <Link href={addPhoneToUrl("/lista-presentes")}>
-          <button className="w-full border-2 border-white text-white py-4 rounded-none font-medium text-lg flex items-center justify-center gap-2">
+          <button className="w-full border border-white text-white py-2 rounded-none font-medium text-base flex items-center justify-center gap-2">
             Lista de Presentes
           </button>
         </Link>
