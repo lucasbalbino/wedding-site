@@ -43,7 +43,7 @@ export function HomeContent() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('/bw-wedding-portrait.png')`,
+          backgroundImage: `url('/gif-casal.gif')`,
         }}
       >
         <div className="absolute inset-0 bg-black/70"></div>
@@ -109,25 +109,6 @@ export function HomeContent() {
           <p className="font-sans text-sm tracking-[0.15em] font-light mb-2">SAVE THE DATE</p>
 
           <p className="font-sans text-lg tracking-[0.1em] font-light mb-4">20.04.26</p>
-
-          <div className="flex justify-center gap-4 text-center">
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold">{timeLeft.days}</span>
-              <span className="text-xs tracking-wider">DIAS</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold">{timeLeft.hours}</span>
-              <span className="text-xs tracking-wider">HORAS</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold">{timeLeft.minutes}</span>
-              <span className="text-xs tracking-wider">MIN</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold">{timeLeft.seconds}</span>
-              <span className="text-xs tracking-wider">SEG</span>
-            </div>
-          </div>
         </div>
       </div>
 
