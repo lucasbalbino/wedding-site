@@ -101,20 +101,6 @@ export default function ConfirmarPresencaPage() {
                 >
                   Lista de Presentes
                 </Link>
-                <Link
-                  href={`/informacoes${phoneParam}`}
-                  className="block text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Informações Gerais
-                </Link>
-                <Link
-                  href={`/nossa-historia${phoneParam}`}
-                  className="block text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Nossa História
-                </Link>
               </div>
             </div>
           )}
@@ -180,20 +166,6 @@ export default function ConfirmarPresencaPage() {
               >
                 Lista de Presentes
               </Link>
-              <Link
-                href={`/informacoes${phoneParam}`}
-                className="block text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Informações Gerais
-              </Link>
-              <Link
-                href={`/nossa-historia${phoneParam}`}
-                className="block text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Nossa História
-              </Link>
             </div>
           </div>
         )}
@@ -201,11 +173,13 @@ export default function ConfirmarPresencaPage() {
 
       <div className="pt-20 pb-16 px-4">
         <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-8 sm:mb-12">
+          <div className="text-center mb-16 mt-16 sm:mb-12">
             <h1 className="text-3xl sm:text-4xl font-bold text-[#f8f7f3] mb-4">Confirmar Presença</h1>
+            <p className="text-base sm:text-lg text-[#eec7b4] mb-4">
+              Sua presença é muito importante para nós!
+            </p>
             <p className="text-base sm:text-lg text-[#eec7b4]">
-              Sua presença é muito importante para nós! Por favor, confirme se você e seus acompanhantes poderão estar
-              conosco no nosso grande dia.
+              Por favor, confirme se você e seus acompanhantes poderão estar conosco no nosso grande dia.
             </p>
           </div>
 
@@ -247,47 +221,22 @@ export default function ConfirmarPresencaPage() {
                   Telefone: <span className="font-medium text-[#f8f7f3]">{phone}</span>
                 </p>
 
-                <div className="space-y-6">
+                <div className="space-y-6 mb-8">
                   {guests.map((guest) => (
-                    <div key={guest.id} className="border-b border-[#cb9072] pb-4 last:border-b-0">
+                    <div key={guest.id}>
                       <h3 className="font-medium text-[#f8f7f3] mb-3">{guest.name}</h3>
-                      <RadioGroup
-                        value={guest.attendance}
-                        onValueChange={(value) => handleAttendanceChange(guest.id, value as "sim" | "nao")}
-                        className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-6"
-                      >
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem
-                            value="sim"
-                            id={`${guest.id}-sim`}
-                            className="border-[#eec7b4] text-[#eec7b4]"
-                          />
-                          <Label htmlFor={`${guest.id}-sim`} className="text-[#eec7b4] font-medium">
-                            Sim, vou comparecer
-                          </Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem
-                            value="nao"
-                            id={`${guest.id}-nao`}
-                            className="border-[#cb9072] text-[#cb9072]"
-                          />
-                          <Label htmlFor={`${guest.id}-nao`} className="text-[#cb9072] font-medium">
-                            Não poderei comparecer
-                          </Label>
-                        </div>
-                      </RadioGroup>
                     </div>
                   ))}
                 </div>
 
-                <Button
-                  onClick={handleSubmit}
-                  disabled={!allGuestsAnswered}
-                  className="w-full mt-6 bg-[#eec7b4] text-[#080a09] hover:bg-[#cb9072] hover:text-[#f8f7f3] font-medium rounded-none"
-                >
-                  Confirmar Presença
-                </Button>
+                <Link href={`/lista-presentes${phoneParam}`}>
+                    <Button
+                    variant="outline"
+                    className="border-[#eec7b4] text-[#eec7b4] hover:bg-[#eec7b4] hover:text-[#080a09] bg-transparent rounded-none"
+                    >
+                    Confirmar presença
+                    </Button>
+                </Link>
               </Card>
 
               <Card className="p-6 sm:p-8 bg-[#5c4d46] border-[#cb9072]">

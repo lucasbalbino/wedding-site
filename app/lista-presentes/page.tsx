@@ -201,20 +201,6 @@ export default function ListaPresentesPage() {
               >
                 Lista de Presentes
               </Link>
-              <Link
-                href={`/informacoes${phoneParam}`}
-                className="block text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Informações Gerais
-              </Link>
-              <Link
-                href={`/nossa-historia${phoneParam}`}
-                className="block text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Nossa História
-              </Link>
             </div>
           </div>
         )}
@@ -222,7 +208,7 @@ export default function ListaPresentesPage() {
 
       <div className="pt-20 pb-16 px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8 sm:mb-12">
+          <div className="text-center mb-16 mt-16 sm:mb-12">
             <h1 className="text-3xl sm:text-4xl font-bold text-[#f8f7f3] mb-4">Lista de Presentes</h1>
             <p className="text-base sm:text-lg text-[#eec7b4] max-w-2xl mx-auto">
               Sua presença já é o maior presente, mas se quiser nos ajudar a começar nossa nova vida juntos ou
@@ -236,13 +222,13 @@ export default function ListaPresentesPage() {
                 value="casa"
                 className="data-[state=active]:bg-[#eec7b4] data-[state=active]:text-[#080a09] text-[#f8f7f3]"
               >
-                Presentes para Nossa Casa
+                Para Nossa Casa
               </TabsTrigger>
               <TabsTrigger
                 value="lua-de-mel"
                 className="data-[state=active]:bg-[#eec7b4] data-[state=active]:text-[#080a09] text-[#f8f7f3]"
               >
-                Presentes para Lua de Mel
+                Para Lua de Mel
               </TabsTrigger>
             </TabsList>
 
