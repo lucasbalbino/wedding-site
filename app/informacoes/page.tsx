@@ -1,77 +1,233 @@
-import Link from "next/link"
-import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+"use client"
 
-export default function InformacoesPage() {
-  const weddingDetails = [
-    {
-      title: "Cerimônia e Recepção",
-      details: [
-        "Data: 20 de Abril de 2029",
-        "Horário: 16h00",
-        "Local: Kauai Eventos",
-        "Instagram: @kauaieventos",
-        "Endereço: Alameda Juazeiro do Norte, 475 - Parque Amazonia, Goiânia - GO, 74840-500",
-      ],
-    },
-  ]
+import { useState, Suspense } from "react"
+import Link from "next/link"
+import Image from "next/image"
+import { usePhoneParam } from "@/hooks/use-phone-param"
+import { MapPin, Clock, Calendar, Instagram } from "lucide-react"
+
+function InformacoesContent() {
+  const { addPhoneToUrl } = usePhoneParam()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-background/95 backdrop-blur-sm border-b border-border z-50">
-        <div className="max-w-6xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="font-serif text-2xl font-bold text-primary">
-              R&L
-            </Link>
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/confirmar-presenca" className="text-muted-foreground hover:text-primary transition-colors">
-                Confirmar Presença
-              </Link>
-              <Link href="/lista-presentes" className="text-muted-foreground hover:text-primary transition-colors">
-                Lista de Presentes
-              </Link>
-              <Link href="/informacoes" className="text-primary font-medium">
-                Informações
-              </Link>
+    <div className="min-h-screen bg-[#080a09] text-[#f8f7f3]">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#080a09]/95 backdrop-blur-sm border-b border-[#5c4d46]/20">
+        <div className="px-4 py-4">
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="text-[#f8f7f3] p-2"
+            aria-label="Menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+
+          {isMobileMenuOpen && (
+            <div className="absolute top-full left-4 right-4 bg-[#080a09]/95 backdrop-blur-sm rounded-lg p-4 mt-2 border border-[#5c4d46]/20">
+              <div className="flex flex-col space-y-3">
+                <Link
+                  href={addPhoneToUrl("/")}
+                  className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Início
+                </Link>
+                <Link
+                  href={addPhoneToUrl("/confirmar-presenca")}
+                  className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Confirmar Presença
+                </Link>
+                <Link
+                  href={addPhoneToUrl("/lista-presentes")}
+                  className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Lista de Presentes
+                </Link>
+                <Link
+                  href={addPhoneToUrl("/nossa-historia")}
+                  className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Nossa História
+                </Link>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </nav>
 
-      <div className="pt-24 pb-16 px-4">
-        <div className="max-w-6xl mx-auto">
+      <div className="pt-20 pb-12 px-4">
+        <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h1 className="font-serif text-4xl font-bold text-primary mb-4">Informações Gerais</h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Tudo que você precisa saber sobre a localização do nosso casamento
-            </p>
+            <div className="flex justify-center mb-6">
+              <Image
+                src="/monograma-white.png"
+                alt="Monograma Rafaela & Lucas"
+                width={80}
+                height={80}
+                className="w-16 h-16 md:w-20 md:h-20"
+              />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-light tracking-wider mb-2">INFORMAÇÕES GERAIS</h1>
+            <p className="text-[#cb9072] text-sm tracking-widest">TUDO QUE VOCÊ PRECISA SABER</p>
           </div>
 
-          <div className="space-y-16">
-            {/* Wedding Details Section */}
-            <section>
-              <h2 className="font-serif text-3xl font-bold text-primary mb-8 text-center">Detalhes do Casamento</h2>
+          <section className="mb-16">
+            <div className="border-t border-b border-[#5c4d46]/30 py-8 mb-8">
+              <h2 className="text-2xl md:text-3xl font-light tracking-wider text-center mb-8 text-[#eec7b4]">
+                DETALHES DO CASAMENTO
+              </h2>
 
-              <div className="grid md:grid-cols-2 gap-8 mb-12">
-                {weddingDetails.map((section) => (
-                  <Card key={section.title} className="p-6 bg-card border-border">
-                    <h3 className="font-serif text-xl font-semibold text-primary mb-4">{section.title}</h3>
-                    <ul className="space-y-2">
-                      {section.details.map((detail, index) => (
-                        <li key={index} className="text-muted-foreground">
-                          {detail}
-                        </li>
-                      ))}
-                    </ul>
-                  </Card>
-                ))}
+              <div className="space-y-8">
+                {/* Data */}
+                <div className="flex items-start gap-4">
+                  <Calendar className="w-6 h-6 text-[#cb9072] flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="text-lg font-medium mb-1 text-[#eec7b4]">Data</h3>
+                    <p className="text-[#f8f7f3]/80">20 de Abril de 2026</p>
+                  </div>
+                </div>
+
+                {/* Horário */}
+                <div className="flex items-start gap-4">
+                  <Clock className="w-6 h-6 text-[#cb9072] flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="text-lg font-medium mb-1 text-[#eec7b4]">Horário</h3>
+                    <p className="text-[#f8f7f3]/80">16h00</p>
+                  </div>
+                </div>
+
+                {/* Local */}
+                <div className="flex items-start gap-4">
+                  <MapPin className="w-6 h-6 text-[#cb9072] flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="text-lg font-medium mb-2 text-[#eec7b4]">Local</h3>
+                    <p className="text-xl font-light mb-2">Kauai Eventos</p>
+                    <p className="text-[#f8f7f3]/80 text-sm mb-2">
+                      Alameda Juazeiro do Norte, 475 - Parque Amazonia
+                      <br />
+                      Goiânia - GO, 74840-500
+                    </p>
+                    <a
+                      href="https://www.instagram.com/kauaieventos"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-[#cb9072] hover:text-[#eec7b4] transition-colors text-sm"
+                    >
+                      <Instagram className="w-4 h-4" />
+                      @kauaieventos
+                    </a>
+                  </div>
+                </div>
               </div>
-            </section>
-          </div>
+            </div>
+          </section>
+
+          <section className="mb-16">
+            <h2 className="text-2xl md:text-3xl font-light tracking-wider text-center mb-8 text-[#eec7b4]">
+              COMO CHEGAR
+            </h2>
+            <div className="w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden border border-[#5c4d46]/30">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3821.8447892847744!2d-49.2089!3d-16.6789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935ef1b0c0c0c0c1%3A0x1234567890abcdef!2sKauai%20Eventos!5e0!3m2!1spt-BR!2sbr!4v1234567890123!5m2!1spt-BR!2sbr"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Localização Kauai Eventos"
+              />
+            </div>
+            <div className="text-center mt-4">
+              <a
+                href="https://maps.app.goo.gl/PCqazvXAQ2r8hbYn7"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-[#cb9072] hover:text-[#eec7b4] transition-colors"
+              >
+                <MapPin className="w-4 h-4" />
+                Abrir no Google Maps
+              </a>
+            </div>
+          </section>
+
+          <section className="mb-16">
+            <h2 className="text-2xl md:text-3xl font-light tracking-wider text-center mb-8 text-[#eec7b4]">
+              CONHEÇA O LOCAL
+            </h2>
+            <p className="text-center text-[#f8f7f3]/80 mb-8">
+              Veja as últimas publicações do @kauaieventos no Instagram
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Instagram Post 1 */}
+              <a
+                href="https://www.instagram.com/kauaieventos"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="aspect-square bg-[#5c4d46]/20 rounded-lg overflow-hidden border border-[#5c4d46]/30 hover:border-[#cb9072] transition-colors group"
+              >
+                <div className="w-full h-full flex items-center justify-center">
+                  <Instagram className="w-12 h-12 text-[#cb9072] group-hover:text-[#eec7b4] transition-colors" />
+                </div>
+              </a>
+
+              {/* Instagram Post 2 */}
+              <a
+                href="https://www.instagram.com/kauaieventos"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="aspect-square bg-[#5c4d46]/20 rounded-lg overflow-hidden border border-[#5c4d46]/30 hover:border-[#cb9072] transition-colors group"
+              >
+                <div className="w-full h-full flex items-center justify-center">
+                  <Instagram className="w-12 h-12 text-[#cb9072] group-hover:text-[#eec7b4] transition-colors" />
+                </div>
+              </a>
+
+              {/* Instagram Post 3 */}
+              <a
+                href="https://www.instagram.com/kauaieventos"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="aspect-square bg-[#5c4d46]/20 rounded-lg overflow-hidden border border-[#5c4d46]/30 hover:border-[#cb9072] transition-colors group"
+              >
+                <div className="w-full h-full flex items-center justify-center">
+                  <Instagram className="w-12 h-12 text-[#cb9072] group-hover:text-[#eec7b4] transition-colors" />
+                </div>
+              </a>
+            </div>
+            <p className="text-center text-[#f8f7f3]/60 text-sm mt-4">Clique para ver mais no Instagram</p>
+          </section>
         </div>
       </div>
     </div>
+  )
+}
+
+export default function InformacoesPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[#080a09] flex items-center justify-center">
+          <div className="text-center">
+            <Image
+              src="/monograma-white.png"
+              alt="Monograma"
+              width={80}
+              height={80}
+              className="w-20 h-20 mx-auto mb-4"
+            />
+            <p className="text-[#f8f7f3]">Carregando...</p>
+          </div>
+        </div>
+      }
+    >
+      <InformacoesContent />
+    </Suspense>
   )
 }
