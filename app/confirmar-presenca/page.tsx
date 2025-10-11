@@ -88,7 +88,7 @@ function ConfirmarPresencaContent() {
             <iframe
               id="external-rsvp-iframe"
               src="https://assessoriavip.com.br/rsvpUnico/484289f0-2471-11f0-8f46-830f817de8ff"
-              className="w-full min-h-[600px] sm:min-h-[800px] border-0"
+              className="w-full border-0"
               title="Formulário de Confirmação de Presença"
               loading="lazy"
               allow="fullscreen"

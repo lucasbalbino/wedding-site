@@ -48,13 +48,6 @@ function InformacoesContent() {
                 >
                   Lista de Presentes
                 </Link>
-                <Link
-                  href={addPhoneToUrl("/nossa-historia")}
-                  className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Nossa História
-                </Link>
               </div>
             </div>
           )}
@@ -134,7 +127,7 @@ function InformacoesContent() {
             </h2>
             <div className="w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden border border-[#5c4d46]/30">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3821.8447892847744!2d-49.2089!3d-16.6789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935ef1b0c0c0c0c1%3A0x1234567890abcdef!2sKauai%20Eventos!5e0!3m2!1spt-BR!2sbr!4v1234567890123!5m2!1spt-BR!2sbr"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3820.915552545354!2d-49.2833295248499!3d-16.731064884048468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935ef0cc11037763%3A0x6fef5190e0275407!2sKauai%20Eventos!5e0!3m2!1spt-BR!2sbr!4v1760155069666!5m2!1spt-BR!2sbr"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -155,53 +148,6 @@ function InformacoesContent() {
                 Abrir no Google Maps
               </a>
             </div>
-          </section>
-
-          <section className="mb-16">
-            <h2 className="text-2xl md:text-3xl font-light tracking-wider text-center mb-8 text-[#eec7b4]">
-              CONHEÇA O LOCAL
-            </h2>
-            <p className="text-center text-[#f8f7f3]/80 mb-8">
-              Veja as últimas publicações do @kauaieventos no Instagram
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Instagram Post 1 */}
-              <a
-                href="https://www.instagram.com/kauaieventos"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="aspect-square bg-[#5c4d46]/20 rounded-lg overflow-hidden border border-[#5c4d46]/30 hover:border-[#cb9072] transition-colors group"
-              >
-                <div className="w-full h-full flex items-center justify-center">
-                  <Instagram className="w-12 h-12 text-[#cb9072] group-hover:text-[#eec7b4] transition-colors" />
-                </div>
-              </a>
-
-              {/* Instagram Post 2 */}
-              <a
-                href="https://www.instagram.com/kauaieventos"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="aspect-square bg-[#5c4d46]/20 rounded-lg overflow-hidden border border-[#5c4d46]/30 hover:border-[#cb9072] transition-colors group"
-              >
-                <div className="w-full h-full flex items-center justify-center">
-                  <Instagram className="w-12 h-12 text-[#cb9072] group-hover:text-[#eec7b4] transition-colors" />
-                </div>
-              </a>
-
-              {/* Instagram Post 3 */}
-              <a
-                href="https://www.instagram.com/kauaieventos"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="aspect-square bg-[#5c4d46]/20 rounded-lg overflow-hidden border border-[#5c4d46]/30 hover:border-[#cb9072] transition-colors group"
-              >
-                <div className="w-full h-full flex items-center justify-center">
-                  <Instagram className="w-12 h-12 text-[#cb9072] group-hover:text-[#eec7b4] transition-colors" />
-                </div>
-              </a>
-            </div>
-            <p className="text-center text-[#f8f7f3]/60 text-sm mt-4">Clique para ver mais no Instagram</p>
           </section>
         </div>
       </div>
