@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react"
 import { useSearchParams } from "next/navigation"
+import { usePhoneParam } from "@/hooks/use-phone-param"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -34,7 +35,8 @@ export default function ListaPresentesPage() {
   const searchParams = useSearchParams()
   const phoneFromUrl = searchParams.get("telefone")
   const phoneParam = phoneFromUrl ? `?telefone=${phoneFromUrl}` : ""
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { addPhoneToUrl } = usePhoneParam()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const [houseGifts, setHouseGifts] = useState<HouseGift[]>([])
   const [loading, setLoading] = useState(true)
@@ -161,54 +163,46 @@ export default function ListaPresentesPage() {
 
   return (
     <div className="min-h-screen bg-[#080a09] text-[#f8f7f3]">
-      <nav className="fixed top-0 w-full bg-[#080a09]/95 backdrop-blur-sm z-50 border-b border-[#5c4d46]">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#080a09]/95 backdrop-blur-sm border-b border-[#5c4d46]/20">
         <div className="px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link href={`/${phoneParam}`} className="flex items-center">
-              <Image
-                src="/monograma-white.png"
-                alt="Monograma Rafaela & Lucas"
-                width={40}
-                height={40}
-                className="w-8 h-8 sm:w-10 sm:h-10"
-              />
-            </Link>
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="text-[#f8f7f3] p-2"
+            aria-label="Menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
 
-        {isMenuOpen && (
-          <div className="bg-[#080a09] border-t border-[#5c4d46]">
-            <div className="px-4 py-4 space-y-4">
-              <Link
-                href={`/confirmar-presenca${phoneParam}`}
-                className="block text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Confirmar Presença
-              </Link>
-              <Link
-                href={`/lista-presentes${phoneParam}`}
-                className="block text-[#eec7b4] font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Lista de Presentes
-              </Link>
-              <Link
-                href={`/informacoes${phoneParam}`}
-                className="block text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Informações Gerais
-              </Link>
+          {isMobileMenuOpen && (
+            <div className="absolute top-full left-4 right-4 bg-[#080a09]/95 backdrop-blur-sm rounded-lg p-4 mt-2 border border-[#5c4d46]/20">
+              <div className="flex flex-col space-y-3">
+                <Link
+                  href={addPhoneToUrl("/")}
+                  className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Início
+                </Link>
+                <Link
+                  href={addPhoneToUrl("/confirmar-presenca")}
+                  className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Confirmar Presença
+                </Link>
+                <Link
+                  href={addPhoneToUrl("/informacoes")}
+                  className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Informações Gerais
+                </Link>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </nav>
 
       <div className="pt-20 pb-16 px-4">
