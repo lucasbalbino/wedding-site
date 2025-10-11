@@ -73,6 +73,13 @@ export function HomeContent() {
               >
                 Lista de Presentes
               </Link>
+              <Link
+                href={addPhoneToUrl("/informacoes")}
+                className="text-white hover:text-accent transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Informações Gerais
+              </Link>
             </div>
           </div>
         )}
