@@ -34,9 +34,6 @@ export default function InformacoesPage() {
               <Link href="/informacoes" className="text-primary font-medium">
                 Informações
               </Link>
-              <Link href="/nossa-historia" className="text-muted-foreground hover:text-primary transition-colors">
-                Nossa História
-              </Link>
             </div>
           </div>
         </div>
