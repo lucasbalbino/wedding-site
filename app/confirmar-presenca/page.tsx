@@ -86,10 +86,10 @@ function ConfirmarPresencaContent() {
 
               <div className="space-y-8">
                 <div className="mt-8 text-center">
-                  <p className="text-base text-[#eec7b4]">
+                  <p className="text-base text-[#f8f7f3]/80">
                     Por favor, coloque o seu nome no formulário abaixo para confirmar sua presença no nosso grande dia.
                   </p>
-                  <p className="text-base text-[#eec7b4]">
+                  <p className="text-base text-[#f8f7f3]/80">
                     Basta rolar a página e escrever seu nome no campo indicado abaixo de "Confirme sua presença".
                   </p>
                   <div className="bg-[#5c4d46] border border-[#cb9072] rounded-lg overflow-hidden mt-8">
@@ -121,15 +121,39 @@ function ConfirmarPresencaContent() {
 
               <div className="space-y-8">
                 <div className="mt-8 text-center">
-                  <p className="text-base text-[#eec7b4] mb-4">
+                  <p className="text-base text-[#f8f7f3]/80 mb-8">
                     Após confirmar sua presença, não se esqueça de escolher um presente da nossa lista!
                   </p>
                   <Link href={`/lista-presentes${phoneParam}`}>
                     <Button
                       variant="outline"
-                      className="border-[#eec7b4] text-[#eec7b4] hover:bg-[#eec7b4] hover:text-[#080a09] bg-transparent rounded-none"
+                      className="w-full border border-white text-white py-2 rounded-none font-medium text-base flex items-center justify-center gap-2"
                     >
                       Ver Lista de Presentes
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+                
+          <section className="mb-16">
+            <div className="border-t border-b border-[#5c4d46]/30 py-8 mb-8">
+              <h2 className="text-2xl md:text-3xl font-light tracking-wider text-center mb-8 text-[#eec7b4]">
+                INFORMAÇÕES GERAIS
+              </h2>
+
+              <div className="space-y-8">
+                <div className="mt-8 text-center">
+                  <p className="text-base text-[#f8f7f3]/80 mb-8">
+                    Tem alguma dúvida sobre detalhes no nosso casamento? 
+                  </p>
+                  <Link href={`/informacoes${phoneParam}`}>
+                    <Button
+                      variant="outline"
+                      className="w-full border border-white text-white py-2 rounded-none font-medium text-base flex items-center justify-center gap-2"
+                    >
+                      Ver Informações gerais
                     </Button>
                   </Link>
                 </div>
