@@ -79,33 +79,14 @@ function ConfirmarPresencaContent() {
             </p>
           </div>
 
-          
-          <div className="relative w-full h-[300px] overflow-hidden bg-[#5c4d46] border border-[#cb9072] rounded-lg">
-            <iframe
-              src="https://assessoriavip.com.br/rsvpUnico/484289f0-2471-11f0-8f46-830f817de8ff"
-              title="Formulário de Confirmação de Presença"
-              className="absolute top-[-1100px] left-0 w-full h-[1400px] border-0"
-              loading="lazy"
-              allow="fullscreen"
-              sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
-            />
-          </div>
-
-
-          <div className="bg-[#5c4d46] border border-[#cb9072] rounded-lg overflow-hidden">
-            <style jsx>{`
-              #external-rsvp-iframe::part(content) .event[data-v-ee01f02d] {
-                display: none !important;
-              }
-            `}</style>
+          <div className="bg-[#5c4d46] border border-[#cb9072] rounded-lg overflow-hidden h-[500px]">
             <iframe
               id="external-rsvp-iframe"
               src="https://assessoriavip.com.br/rsvpUnico/484289f0-2471-11f0-8f46-830f817de8ff"
-              className="w-full min-h-[2000px] border-0"
+              className="w-full min-h-[500px] border-0"
               title="Formulário de Confirmação de Presença"
               loading="lazy"
               allow="fullscreen"
-              scrolling="no"
               sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
             />
           </div>
