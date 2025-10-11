@@ -10,7 +10,8 @@ export default function InformacoesPage() {
         "Data: 20 de Abril de 2029",
         "Horário: 16h00",
         "Local: Kauai Eventos",
-        "Endereço: Rua 10, nº 123, Setor Central, Goiânia - GO",
+        "Instagram: @kauaieventos",
+        "Endereço: Alameda Juazeiro do Norte, 475 - Parque Amazonia, Goiânia - GO, 74840-500",
       ],
     },
   ]
