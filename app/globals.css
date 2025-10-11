@@ -124,4 +124,20 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Hide the event div inside the RSVP iframe */
+  #external-rsvp-iframe {
+    color-scheme: light;
+  }
+}
+
+/* Additional styles to hide specific elements in the iframe if accessible */
+@layer utilities {
+  .hide-iframe-event div[data-v-ee01f02d].event {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
 }
