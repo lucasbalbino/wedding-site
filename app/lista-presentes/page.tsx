@@ -226,16 +226,16 @@ export default function ListaPresentesPage() {
           </div>
 
           <Tabs defaultValue="casa" className="w-full mt-16">
-            <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto mb-8 bg-[#5c4d46] border-[#cb9072]">
+            <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto mb-8 bg-[#5c4d46] border-[#cb9072] h-12">
               <TabsTrigger
                 value="casa"
-                className="data-[state=active]:bg-[#eec7b4] data-[state=active]:text-[#080a09] text-[#f8f7f3]"
+                className="data-[state=active]:bg-[#eec7b4] data-[state=active]:text-[#080a09] text-[#f8f7f3] text-lg"
               >
                 Para Nossa Casa
               </TabsTrigger>
               <TabsTrigger
                 value="lua-de-mel"
-                className="data-[state=active]:bg-[#eec7b4] data-[state=active]:text-[#080a09] text-[#f8f7f3]"
+                className="data-[state=active]:bg-[#eec7b4] data-[state=active]:text-[#080a09] text-[#f8f7f3] text-lg"
               >
                 Para Lua de Mel
               </TabsTrigger>
@@ -243,7 +243,7 @@ export default function ListaPresentesPage() {
 
             <div className="mb-16 max-w-md mx-auto">
               <div className="bg-[#5c4d46] p-6 rounded border border-[#cb9072]">
-                <h3 className="text-sm text-[#f8f7f3] mb-4 text-center">Filtrar por Preço</h3>
+                <h3 className="text-xs text-[#f8f7f3] mb-4 text-center">Filtrar por preço</h3>
                 <div className="space-y-4">
                   <div className="px-2">
                     <Slider
@@ -255,7 +255,7 @@ export default function ListaPresentesPage() {
                       className="w-full"
                     />
                   </div>
-                  <div className="flex justify-between text-sm text-[#eec7b4]">
+                  <div className="flex justify-between text-xs text-[#eec7b4]">
                     <span>R$ {priceRange[0].toLocaleString()}</span>
                     <span>R$ {priceRange[1].toLocaleString()}</span>
                   </div>
@@ -270,7 +270,7 @@ export default function ListaPresentesPage() {
                     PRESENTES PARA A NOSSA CASA
                   </h2>
                   <p className="text-[#f8f7f3]/80">Itens que nos ajudarão a mobiliar e decorar nosso novo lar</p>
-                  <p className="text-sm text-[#cb9072] mt-2">
+                  <p className="text-xs text-[#cb9072] mt-2">
                     {filteredHouseGifts.length} de {houseGifts.length} itens na faixa de preço selecionada
                   </p>
                 </div>
@@ -436,7 +436,7 @@ export default function ListaPresentesPage() {
                     PRESENTES PARA A NOSSA LUA DE MEL
                   </h2>
                   <p className="text-[#f8f7f3]/80">Contribua para tornar nossa lua de mel ainda mais especial</p>
-                  <p className="text-sm text-[#cb9072] mt-2">
+                  <p className="text-xs text-[#cb9072] mt-2">
                     {filteredHouseGifts.length} de {houseGifts.length} itens na faixa de preço selecionada
                   </p>
                 </div>
