@@ -61,13 +61,6 @@ function ConfirmarPresencaContent() {
               >
                 Informações Gerais
               </Link>
-              <Link
-                href={`/nossa-historia${phoneParam}`}
-                className="block text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Nossa História
-              </Link>
             </div>
           </div>
         )}
@@ -79,7 +72,10 @@ function ConfirmarPresencaContent() {
             <h1 className="text-3xl sm:text-4xl font-bold text-[#f8f7f3] mb-4">Confirmar Presença</h1>
             <p className="text-base sm:text-lg text-[#eec7b4] mb-4">Sua presença é muito importante para nós!</p>
             <p className="text-sm sm:text-base text-[#eec7b4]">
-              Por favor, preencha o formulário abaixo para confirmar sua presença no nosso grande dia.
+              Por favor, coloque o seu nome no formulário abaixo para confirmar sua presença no nosso grande dia.
+            </p>
+            <p className="text-sm sm:text-base text-[#eec7b4]">
+              Basta rolar a página e escrever seu nome no campo indicado abaixo de "Confirme sua presença".
             </p>
           </div>
 

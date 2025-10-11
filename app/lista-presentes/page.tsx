@@ -206,13 +206,6 @@ export default function ListaPresentesPage() {
               >
                 Informações Gerais
               </Link>
-              <Link
-                href={`/nossa-historia${phoneParam}`}
-                className="block text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Nossa História
-              </Link>
             </div>
           </div>
         )}
@@ -245,9 +238,6 @@ export default function ListaPresentesPage() {
                 <div className="flex justify-between text-sm text-[#eec7b4]">
                   <span>R$ {priceRange[0].toLocaleString()}</span>
                   <span>R$ {priceRange[1].toLocaleString()}</span>
-                </div>
-                <div className="text-center text-xs text-[#cb9072]">
-                  Faixa: R$ {priceRangeData.min.toLocaleString()} - R$ {priceRangeData.max.toLocaleString()}
                 </div>
               </div>
             </div>
