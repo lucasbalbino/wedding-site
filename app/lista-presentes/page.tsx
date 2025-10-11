@@ -205,19 +205,46 @@ export default function ListaPresentesPage() {
         </div>
       </nav>
 
-      <div className="pt-20 pb-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16 mt-16 sm:mb-12">
-            <h1 className="text-3xl sm:text-4xl font-bold text-[#f8f7f3] mb-4">Lista de Presentes</h1>
-            <p className="text-base sm:text-lg text-[#eec7b4] max-w-2xl mx-auto">
-              Sua presença já é o maior presente, mas se quiser nos ajudar a começar nossa nova vida juntos ou
+      <div className="pt-20 pb-12 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="flex justify-center mb-6">
+              <Image
+                src="/monograma-white.png"
+                alt="Monograma Rafaela & Lucas"
+                width={80}
+                height={80}
+                className="w-16 h-16 md:w-20 md:h-20"
+              />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-light tracking-wider mb-2">LISTA DE PRESENTES</h1>
+            <p className="text-[#cb9072] text-sm tracking-widest">SUA PRESENÇA JÁ É O MAIOR PRESENTE</p>
+            <p className="text-lg mt-8 text-[#eec7b4] max-w-2xl mx-auto">
+              Mas se quiser nos ajudar a começar nossa nova vida juntos ou
               contribuir para nossa lua de mel, ficamos muito gratos!
             </p>
           </div>
 
-          <div className="mb-8 max-w-md mx-auto">
+          <Tabs defaultValue="casa" className="w-full mt-16">
+            <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto mb-8 bg-[#5c4d46] border-[#cb9072]">
+              <TabsTrigger
+                value="casa"
+                className="data-[state=active]:bg-[#eec7b4] data-[state=active]:text-[#080a09] text-[#f8f7f3]"
+              >
+                Para Nossa Casa
+              </TabsTrigger>
+              <TabsTrigger
+                value="lua-de-mel"
+                className="data-[state=active]:bg-[#eec7b4] data-[state=active]:text-[#080a09] text-[#f8f7f3]"
+              >
+                Para Lua de Mel
+              </TabsTrigger>
+            </TabsList>
+
+
+          <div className="mb-16 max-w-md mx-auto">
             <div className="bg-[#5c4d46] p-6 rounded border border-[#cb9072]">
-              <h3 className="text-lg font-semibold text-[#f8f7f3] mb-4 text-center">Filtrar por Preço</h3>
+              <h3 className="text-sm text-[#f8f7f3] mb-4 text-center">Filtrar por Preço</h3>
               <div className="space-y-4">
                 <div className="px-2">
                   <Slider
@@ -236,22 +263,6 @@ export default function ListaPresentesPage() {
               </div>
             </div>
           </div>
-
-          <Tabs defaultValue="casa" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto mb-8 bg-[#5c4d46] border-[#cb9072]">
-              <TabsTrigger
-                value="casa"
-                className="data-[state=active]:bg-[#eec7b4] data-[state=active]:text-[#080a09] text-[#f8f7f3]"
-              >
-                Para Nossa Casa
-              </TabsTrigger>
-              <TabsTrigger
-                value="lua-de-mel"
-                className="data-[state=active]:bg-[#eec7b4] data-[state=active]:text-[#080a09] text-[#f8f7f3]"
-              >
-                Para Lua de Mel
-              </TabsTrigger>
-            </TabsList>
 
             <TabsContent value="casa" className="space-y-6 sm:space-y-8">
               <div className="text-center mb-6 sm:mb-8">
