@@ -6,7 +6,7 @@ import { usePhoneParam } from "@/hooks/use-phone-param"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Menu, X } from "lucide-react"
+import { Menu, MessageCircle, X } from "lucide-react"
 
 function ConfirmarPresencaContent() {
   const searchParams = useSearchParams()
@@ -108,6 +108,28 @@ function ConfirmarPresencaContent() {
                       sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
                     />
                   </div>
+                  <p className="mt-8 text-base text-[#f8f7f3]/80">
+                    Caso tenha algum problema ao confirmar seu nome, mande mensagem direto para o{" "}
+                    <a
+                      href="https://wa.me/5562991639973?text=Estou%20com%20dificuldade%20para%20confirmar%20minha%20presen%C3%A7a%20no%20seu%20casamento!%20Consegue%20me%20ajudar?"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[#25D366] hover:text-[#1ebe5d] underline decoration-[#25D366]/40 hover:decoration-[#1ebe5d]"
+                    >
+                      <MessageCircle className="w-4 h-4" />
+                      Lucas
+                    </a>{" "}
+                    ou para a{" "}
+                    <a
+                      href="https://wa.me/5562982720235?text=Estou%20com%20dificuldade%20para%20confirmar%20minha%20presen%C3%A7a%20no%20seu%20casamento!%20Consegue%20me%20ajudar?"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[#25D366] hover:text-[#1ebe5d] underline decoration-[#25D366]/40 hover:decoration-[#1ebe5d]"
+                    >
+                      <MessageCircle className="w-4 h-4" />
+                      Rafaela
+                    </a>.
+                  </p>
                 </div>
               </div>
             </div>
