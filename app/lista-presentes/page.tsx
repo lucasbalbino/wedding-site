@@ -286,67 +286,71 @@ export default function ListaPresentesPage() {
     return (gift as HoneymoonGift).value
   }
 
-// CRC-16/CCITT-FALSE -> retorna string hex (ex: "9C99")
-const calculateCRC16 = (payload: string): string => {
-  let crc = 0xffff
-  for (let i = 0; i < payload.length; i++) {
-    crc ^= payload.charCodeAt(i) << 8
-    for (let j = 0; j < 8; j++) {
-      if ((crc & 0x8000) !== 0) {
-        crc = ((crc << 1) ^ 0x1021) & 0xffff
-      } else {
-        crc = (crc << 1) & 0xffff
+  // CRC-16/CCITT-FALSE -> retorna string hex (ex: "9C99")
+  const calculateCRC16 = (payload: string): string => {
+    let crc = 0xffff
+    for (let i = 0; i < payload.length; i++) {
+      crc ^= payload.charCodeAt(i) << 8
+      for (let j = 0; j < 8; j++) {
+        if ((crc & 0x8000) !== 0) {
+          crc = ((crc << 1) ^ 0x1021) & 0xffff
+        } else {
+          crc = (crc << 1) & 0xffff
+        }
       }
     }
-  }
-  return crc.toString(16).toUpperCase().padStart(4, "0")
-}
-
-// Gera BR Code (Copia e Cola) — sanitiza o TXID (apenas A-Z a-z 0-9) e garante <=25 chars.
-// amount em reais (ex: 2400.00). Passe giftId para gerar TXID referente ao item.
-const generatePixData = (amount: number, giftId?: string) => {
-  const pixKey = "eac0ac2b-4f4b-4e11-8a7b-342d96061aee"
-  const merchantName = "Rafaela Teixeira Alvares"
-  const merchantCity = "SAO PAULO"
-
-  // --- gera txid legível + sanitiza para permitir apenas alfanuméricos ---
-  const rawTxid = giftId ? `GFT${giftId}-${Date.now().toString(36).toUpperCase().slice(-8)}` : `AUTO${Date.now().toString(36).toUpperCase().slice(-10)}`
-  const txidSanitized = rawTxid.replace(/[^A-Za-z0-9]/g, "").slice(0, 25) // só letras e dígitos, max 25 chars
-
-  // --- Merchant Account Info (tag 26) corretamente montada ---
-  const guiTag = "00" + "14" + "BR.GOV.BCB.PIX"                       // 00 + length(14) + GUI
-  const keyTag = "01" + String(pixKey.length).padStart(2, "0") + pixKey // 01 + length + chave
-  const maiValue = guiTag + keyTag
-  const mai = "26" + String(maiValue.length).padStart(2, "0") + maiValue
-
-  // --- Tags fixas ---
-  const mcc = "52040000"
-  const currency = "5303986" // 986 = BRL
-
-  // --- Valor (tag 54) : somente se amount > 0 ---
-  let valueField = ""
-  if (typeof amount === "number" && amount > 0) {
-    const amtStr = amount.toFixed(2) // ex: "2400.00"
-    valueField = "54" + String(amtStr.length).padStart(2, "0") + amtStr
+    return crc.toString(16).toUpperCase().padStart(4, "0")
   }
 
-  // --- País, Nome, Cidade ---
-  const country = "5802BR"
-  const nameField = "59" + String(merchantName.length).padStart(2, "0") + merchantName
-  const cityField = "60" + String(merchantCity.length).padStart(2, "0") + merchantCity
+  // Gera BR Code (Copia e Cola) — sanitiza o TXID (apenas A-Z a-z 0-9) e garante <=25 chars.
+  // amount em reais (ex: 2400.00). Passe giftId para gerar TXID referente ao item.
+  const generatePixData = (amount: number, giftId?: string) => {
+    const pixKey = "eac0ac2b-4f4b-4e11-8a7b-342d96061aee"
+    const merchantName = "Rafaela Teixeira Alvares"
+    const merchantCity = "SAO PAULO"
 
-  // --- TXID (tag 62 subtag 05) com txid sanitizado ---
-  const sub05 = "05" + String(txidSanitized.length).padStart(2, "0") + txidSanitized
-  const additionalData = "62" + String(sub05.length).padStart(2, "0") + sub05
+    // --- gera txid legível + sanitiza para permitir apenas alfanuméricos ---
+    const rawTxid = giftId
+      ? `GFT${giftId}-${Date.now().toString(36).toUpperCase().slice(-8)}`
+      : `AUTO${Date.now().toString(36).toUpperCase().slice(-10)}`
+    const txidSanitized = rawTxid.replace(/[^A-Za-z0-9]/g, "").slice(0, 25) // só letras e dígitos, max 25 chars
 
-  // --- Monta payload sem CRC ---
-  const payloadNoCrc = ["000201", mai, mcc, currency, valueField, country, nameField, cityField, additionalData].join("")
+    // --- Merchant Account Info (tag 26) corretamente montada ---
+    const guiTag = "00" + "14" + "BR.GOV.BCB.PIX" // 00 + length(14) + GUI
+    const keyTag = "01" + String(pixKey.length).padStart(2, "0") + pixKey // 01 + length + chave
+    const maiValue = guiTag + keyTag
+    const mai = "26" + String(maiValue.length).padStart(2, "0") + maiValue
 
-  // --- Calcula CRC e retorna full BR Code ---
-  const toCrc = payloadNoCrc + "6304"
-  const crc = calculateCRC16(toCrc)
-  return toCrc + crc
-}
+    // --- Tags fixas ---
+    const mcc = "52040000"
+    const currency = "5303986" // 986 = BRL
+
+    // --- Valor (tag 54) : somente se amount > 0 ---
+    let valueField = ""
+    if (typeof amount === "number" && amount > 0) {
+      const amtStr = amount.toFixed(2) // ex: "2400.00"
+      valueField = "54" + String(amtStr.length).padStart(2, "0") + amtStr
+    }
+
+    // --- País, Nome, Cidade ---
+    const country = "5802BR"
+    const nameField = "59" + String(merchantName.length).padStart(2, "0") + merchantName
+    const cityField = "60" + String(merchantCity.length).padStart(2, "0") + merchantCity
+
+    // --- TXID (tag 62 subtag 05) com txid sanitizado ---
+    const sub05 = "05" + String(txidSanitized.length).padStart(2, "0") + txidSanitized
+    const additionalData = "62" + String(sub05.length).padStart(2, "0") + sub05
+
+    // --- Monta payload sem CRC ---
+    const payloadNoCrc = ["000201", mai, mcc, currency, valueField, country, nameField, cityField, additionalData].join(
+      "",
+    )
+
+    // --- Calcula CRC e retorna full BR Code ---
+    const toCrc = payloadNoCrc + "6304"
+    const crc = calculateCRC16(toCrc)
+    return toCrc + crc
+  }
 
   const handleWhatsAppRedirect = (contact: "lucas" | "rafaela") => {
     if (!selectedGift) return
@@ -539,16 +543,15 @@ const generatePixData = (amount: number, giftId?: string) => {
                                 </Button>
                               </DialogTrigger>
                               {selectedGift?.id === gift.id && (
-                                <DialogContent className="max-w-2xl bg-[#5c4d46] border-[#cb9072] text-[#f8f7f3] rounded-none">
+                                <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto bg-[#5c4d46] border-[#cb9072] text-[#f8f7f3] rounded-none">
                                   <DialogHeader>
                                     <DialogTitle className="text-2xl font-light tracking-wider text-[#eec7b4]">
                                       {gift.name}
                                     </DialogTitle>
                                   </DialogHeader>
-                                  <div className="space-y-8">
-                                    <div className="border-b border-[#5c4d46] pb-6">
+                                  <div className="space-y-6">
+                                    <div className="pb-4">
                                       <div className="flex items-center gap-3 mb-4">
-                                        <div className="h-1 w-8 bg-[#eec7b4]"></div>
                                         <h4 className="text-lg font-light tracking-wider text-[#eec7b4]">
                                           COMPRAR FISICAMENTE
                                         </h4>
@@ -567,7 +570,7 @@ const generatePixData = (amount: number, giftId?: string) => {
                                           >
                                             <Button
                                               variant="outline"
-                                              className="w-full bg-transparent border border-[#cb9072] text-[#eec7b4] hover:bg-[#cb9072] hover:text-[#080a09] hover:border-[#eec7b4] rounded-none transition-all"
+                                              className="w-full bg-transparent border border-[#cb9072] text-[#eec7b4] hover:bg-[#cb9072] hover:text-[#080a09] hover:border-[#eec7b4] active:bg-[#cb9072] active:scale-95 rounded-none transition-all duration-200"
                                             >
                                               {store.name}
                                             </Button>
@@ -576,9 +579,8 @@ const generatePixData = (amount: number, giftId?: string) => {
                                       </div>
                                     </div>
 
-                                    <div className="border-b border-[#5c4d46] pb-6">
+                                    <div className="pb-4">
                                       <div className="flex items-center gap-3 mb-4">
-                                        <div className="h-1 w-8 bg-[#eec7b4]"></div>
                                         <h4 className="text-lg font-light tracking-wider text-[#eec7b4]">ENVIAR PIX</h4>
                                       </div>
                                       <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">
@@ -601,7 +603,7 @@ const generatePixData = (amount: number, giftId?: string) => {
                                               generatePixData(getAveragePriceForPix(gift), gift.id),
                                             )
                                           }
-                                          className="w-full border border-[#cb9072] text-[#eec7b4] hover:bg-[#cb9072] hover:text-[#080a09] bg-transparent rounded-none transition-all"
+                                          className="w-full border border-[#cb9072] text-[#eec7b4] hover:bg-[#cb9072] hover:text-[#080a09] bg-transparent rounded-none transition-all duration-200 active:scale-95"
                                         >
                                           Copiar PIX
                                         </Button>
@@ -610,7 +612,6 @@ const generatePixData = (amount: number, giftId?: string) => {
 
                                     <div>
                                       <div className="flex items-center gap-3 mb-4">
-                                        <div className="h-1 w-8 bg-[#eec7b4]"></div>
                                         <h4 className="text-lg font-light tracking-wider text-[#eec7b4]">
                                           CONFIRMAR SELEÇÃO
                                         </h4>
@@ -625,7 +626,7 @@ const generatePixData = (amount: number, giftId?: string) => {
                                           target="_blank"
                                           rel="noopener noreferrer"
                                           onClick={() => handleWhatsAppRedirect("lucas")}
-                                          className="inline-flex items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] transition-colors group"
+                                          className="inline-flex items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] active:text-[#0da050] active:scale-95 transition-all duration-200"
                                         >
                                           <MessageCircle className="w-4 h-4" />
                                           <span className="font-light tracking-wide">Lucas</span>
@@ -636,7 +637,7 @@ const generatePixData = (amount: number, giftId?: string) => {
                                           target="_blank"
                                           rel="noopener noreferrer"
                                           onClick={() => handleWhatsAppRedirect("rafaela")}
-                                          className="inline-flex items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] transition-colors group"
+                                          className="inline-flex items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] active:text-[#0da050] active:scale-95 transition-all duration-200"
                                         >
                                           <MessageCircle className="w-4 h-4" />
                                           <span className="font-light tracking-wide">Rafaela</span>
@@ -697,16 +698,15 @@ const generatePixData = (amount: number, giftId?: string) => {
                               </Button>
                             </DialogTrigger>
                             {selectedGift?.id === gift.id && (
-                              <DialogContent className="max-w-2xl bg-[#5c4d46] border-[#cb9072] text-[#f8f7f3] rounded-none">
+                              <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto bg-[#5c4d46] border-[#cb9072] text-[#f8f7f3] rounded-none">
                                 <DialogHeader>
                                   <DialogTitle className="text-2xl font-light tracking-wider text-[#eec7b4]">
                                     R$ {gift.value.toLocaleString()} - {gift.description}
                                   </DialogTitle>
                                 </DialogHeader>
-                                <div className="space-y-8">
-                                  <div className="border-b border-[#5c4d46] pb-6">
+                                <div className="space-y-6">
+                                  <div className="pb-4">
                                     <div className="flex items-center gap-3 mb-4">
-                                      <div className="h-1 w-8 bg-[#eec7b4]"></div>
                                       <h4 className="text-lg font-light tracking-wider text-[#eec7b4]">ENVIAR PIX</h4>
                                     </div>
                                     <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">{gift.description}</p>
@@ -722,7 +722,7 @@ const generatePixData = (amount: number, giftId?: string) => {
                                         onClick={() =>
                                           navigator.clipboard.writeText(generatePixData(gift.value, gift.id))
                                         }
-                                        className="w-full border border-[#cb9072] text-[#eec7b4] hover:bg-[#cb9072] hover:text-[#080a09] bg-transparent rounded-none transition-all"
+                                        className="w-full border border-[#cb9072] text-[#eec7b4] hover:bg-[#cb9072] hover:text-[#080a09] bg-transparent rounded-none transition-all duration-200 active:scale-95"
                                       >
                                         Copiar PIX
                                       </Button>
@@ -731,7 +731,6 @@ const generatePixData = (amount: number, giftId?: string) => {
 
                                   <div>
                                     <div className="flex items-center gap-3 mb-4">
-                                      <div className="h-1 w-8 bg-[#eec7b4]"></div>
                                       <h4 className="text-lg font-light tracking-wider text-[#eec7b4]">
                                         CONFIRMAR SELEÇÃO
                                       </h4>
@@ -746,7 +745,7 @@ const generatePixData = (amount: number, giftId?: string) => {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         onClick={() => handleWhatsAppRedirect("lucas")}
-                                        className="inline-flex items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] transition-colors group"
+                                        className="inline-flex items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] active:text-[#0da050] active:scale-95 transition-all duration-200"
                                       >
                                         <MessageCircle className="w-4 h-4" />
                                         <span className="font-light tracking-wide">Lucas</span>
@@ -757,7 +756,7 @@ const generatePixData = (amount: number, giftId?: string) => {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         onClick={() => handleWhatsAppRedirect("rafaela")}
-                                        className="inline-flex items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] transition-colors group"
+                                        className="inline-flex items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] active:text-[#0da050] active:scale-95 transition-all duration-200"
                                       >
                                         <MessageCircle className="w-4 h-4" />
                                         <span className="font-light tracking-wide">Rafaela</span>
