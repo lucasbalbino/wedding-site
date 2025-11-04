@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Slider } from "@/components/ui/slider"
-import { Menu, X, Loader2 } from "lucide-react"
+import { Loader2, MessageCircle } from "lucide-react"
 
 interface HouseGift {
   id: string
@@ -29,6 +29,8 @@ interface HoneymoonGift {
   value: number
   description: string
   image: string
+  isSelected: boolean
+  selectedBy?: string
 }
 
 export default function ListaPresentesPage() {
@@ -39,6 +41,7 @@ export default function ListaPresentesPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const [houseGifts, setHouseGifts] = useState<HouseGift[]>([])
+  const [honeymoonGifts, setHoneymoonGifts] = useState<HoneymoonGift[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -67,28 +70,151 @@ export default function ListaPresentesPage() {
     fetchGifts()
   }, [])
 
-  const honeymoonGifts: HoneymoonGift[] = [
-    { id: "h1", value: 50, description: "Gelato em Veneza: um delicioso sorvete artesanal", image: "/h1.jpeg" },
-    { id: "h2", value: 500, description: "Passeio de gôndola em Veneza: uma experiência romântica", image: "/h2.jpeg" },
-    { id: "h3", value: 300, description: "Jantar em um restaurante típico em Roma: uma noite especial", image: "/h3.jpeg" },
-    { id: "h4", value: 2500, description: "Passeio de balão na Toscana: uma aventura inesquecível", image: "/h4.jpeg" },
-    { id: "h5", value: 200, description: "Tour gastronômico em Florença: degustação de queijos e embutidos", image: "/h5.jpeg" },
-    { id: "h6", value: 100, description: "Entrada para o Coliseu em Roma: uma visita histórica", image: "/h6.jpeg" },
-    { id: "h7", value: 800, description: "Passeio de barco pelo Canal de Veneza: passeio mais privativo", image: "/h7.jpeg" },
-    { id: "h8", value: 400, description: "Experiência de culinária em Roma: aula de preparo de massas", image: "/h8.jpeg" },
-    { id: "h9", value: 150, description: "Passeio de bicicleta pela Toscana: uma manhã explorando a região", image: "/h9.jpeg" },
-    { id: "h10", value: 300, description: "Visita guiada aos Museus Vaticanos: um tour cultural", image: "/h10.jpeg" },
-    { id: "h11", value: 200, description: "Passeio de trem de alta velocidade: traslado entre cidades", image: "/honeymoon-extension.png" },
-    { id: "h12", value: 1000, description: "Experiência de spa em um hotel na Toscana: relaxamento e bem-estar", image: "/dream-honeymoon.png" },
-    { id: "h13", value: 250, description: "Tour de arte em Florença: visita às galerias e museus", image: "/dream-honeymoon.png" },
-    { id: "h14", value: 1500, description: "Noite em um hotel boutique em Veneza: uma experiência romântica", image: "/dream-honeymoon.png" },
-    { id: "h15", value: 600, description: "Passeio de barco pelo Lago de Como: uma tarde especial", image: "/dream-honeymoon.png" },
-    { id: "h16", value: 150, description: "Aula de italiano em Roma: uma introdução à língua", image: "/dream-honeymoon.png" },
-    { id: "h17", value: 250, description: "Passeio de tuk-tuk em Roma: um tour divertido", image: "/dream-honeymoon.png" },
-    { id: "h18", value: 1000, description: "Experiência de fotografia em Veneza: sessão de fotos profissional", image: "/dream-honeymoon.png" },
-    { id: "h19", value: 400, description: "Passeio de barco pelo Rio Arno em Florença: linda vista", image: "/dream-honeymoon.png" },
-    { id: "h20", value: 800, description: "Jantar em um restaurante com vista para o Coliseu: uma noite inesquecível", image: "/dream-honeymoon.png" },
-  ]
+  useEffect(() => {
+    const honeymoonData: HoneymoonGift[] = [
+      {
+        id: "h1",
+        value: 50,
+        description: "Gelato em Veneza: um delicioso sorvete artesanal",
+        image: "/h1.jpeg",
+        isSelected: false,
+      },
+      {
+        id: "h2",
+        value: 500,
+        description: "Passeio de gôndola em Veneza: uma experiência romântica",
+        image: "/h2.jpeg",
+        isSelected: false,
+      },
+      {
+        id: "h3",
+        value: 300,
+        description: "Jantar em um restaurante típico em Roma: uma noite especial",
+        image: "/h3.jpeg",
+        isSelected: false,
+      },
+      {
+        id: "h4",
+        value: 2500,
+        description: "Passeio de balão na Toscana: uma aventura inesquecível",
+        image: "/h4.jpeg",
+        isSelected: false,
+      },
+      {
+        id: "h5",
+        value: 200,
+        description: "Tour gastronômico em Florença: degustação de queijos e embutidos",
+        image: "/h5.jpeg",
+        isSelected: false,
+      },
+      {
+        id: "h6",
+        value: 100,
+        description: "Entrada para o Coliseu em Roma: uma visita histórica",
+        image: "/h6.jpeg",
+        isSelected: false,
+      },
+      {
+        id: "h7",
+        value: 800,
+        description: "Passeio de barco pelo Canal de Veneza: passeio mais privativo",
+        image: "/h7.jpeg",
+        isSelected: false,
+      },
+      {
+        id: "h8",
+        value: 400,
+        description: "Experiência de culinária em Roma: aula de preparo de massas",
+        image: "/h8.jpeg",
+        isSelected: false,
+      },
+      {
+        id: "h9",
+        value: 150,
+        description: "Passeio de bicicleta pela Toscana: uma manhã explorando a região",
+        image: "/h9.jpeg",
+        isSelected: false,
+      },
+      {
+        id: "h10",
+        value: 300,
+        description: "Visita guiada aos Museus Vaticanos: um tour cultural",
+        image: "/h10.jpeg",
+        isSelected: false,
+      },
+      {
+        id: "h11",
+        value: 200,
+        description: "Passeio de trem de alta velocidade: traslado entre cidades",
+        image: "/honeymoon-extension.png",
+        isSelected: false,
+      },
+      {
+        id: "h12",
+        value: 1000,
+        description: "Experiência de spa em um hotel na Toscana: relaxamento e bem-estar",
+        image: "/dream-honeymoon.png",
+        isSelected: false,
+      },
+      {
+        id: "h13",
+        value: 250,
+        description: "Tour de arte em Florença: visita às galerias e museus",
+        image: "/dream-honeymoon.png",
+        isSelected: false,
+      },
+      {
+        id: "h14",
+        value: 1500,
+        description: "Noite em um hotel boutique em Veneza: uma experiência romântica",
+        image: "/dream-honeymoon.png",
+        isSelected: false,
+      },
+      {
+        id: "h15",
+        value: 600,
+        description: "Passeio de barco pelo Lago de Como: uma tarde especial",
+        image: "/dream-honeymoon.png",
+        isSelected: false,
+      },
+      {
+        id: "h16",
+        value: 150,
+        description: "Aula de italiano em Roma: uma introdução à língua",
+        image: "/dream-honeymoon.png",
+        isSelected: false,
+      },
+      {
+        id: "h17",
+        value: 250,
+        description: "Passeio de tuk-tuk em Roma: um tour divertido",
+        image: "/dream-honeymoon.png",
+        isSelected: false,
+      },
+      {
+        id: "h18",
+        value: 1000,
+        description: "Experiência de fotografia em Veneza: sessão de fotos profissional",
+        image: "/dream-honeymoon.png",
+        isSelected: false,
+      },
+      {
+        id: "h19",
+        value: 400,
+        description: "Passeio de barco pelo Rio Arno em Florença: linda vista",
+        image: "/dream-honeymoon.png",
+        isSelected: false,
+      },
+      {
+        id: "h20",
+        value: 800,
+        description: "Jantar em um restaurante com vista para o Coliseu: uma noite inesquecível",
+        image: "/dream-honeymoon.png",
+        isSelected: false,
+      },
+    ]
+    setHoneymoonGifts(honeymoonData)
+  }, [])
 
   const extractPrice = (priceRange: string): number => {
     if (!priceRange || typeof priceRange !== "string") {
@@ -113,7 +239,7 @@ export default function ListaPresentesPage() {
     const max = Math.max(...allPrices)
 
     return { min, max }
-  }, [houseGifts])
+  }, [houseGifts, honeymoonGifts])
 
   useEffect(() => {
     if (priceRangeData.min !== 0 || priceRangeData.max !== 10000) {
@@ -132,41 +258,124 @@ export default function ListaPresentesPage() {
     return honeymoonGifts.filter((gift) => {
       return gift.value >= priceRange[0] && gift.value <= priceRange[1]
     })
-  }, [priceRange])
+  }, [honeymoonGifts, priceRange])
 
   const [selectedGift, setSelectedGift] = useState<HouseGift | HoneymoonGift | null>(null)
   const [giftType, setGiftType] = useState<"house" | "honeymoon">("house")
-  const [paymentMethod, setPaymentMethod] = useState<"physical" | "pix">("physical")
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const handleSelectHouseGift = (gift: HouseGift, method: "physical" | "pix") => {
-    if (gift.isSelected) return
-
+  const handleSelectGift = (gift: HouseGift | HoneymoonGift, type: "house" | "honeymoon") => {
+    if ("isSelected" in gift && gift.isSelected) return
     setSelectedGift(gift)
-    setGiftType("house")
-    setPaymentMethod(method)
+    setGiftType(type)
+    setIsModalOpen(true)
   }
 
-  const handleSelectHoneymoonGift = (gift: HoneymoonGift) => {
-    setSelectedGift(gift)
-    setGiftType("honeymoon")
-    setPaymentMethod("pix")
+  const getAveragePriceForPix = (gift: HouseGift | HoneymoonGift) => {
+    if (giftType === "house") {
+      const hGift = gift as HouseGift
+      const priceRange = hGift.priceRange
+      const match = priceRange.match(/R\$\s*(\d+(?:\.\d+)*)\s*-\s*R\$\s*(\d+(?:\.\d+)*)/i)
+      if (match) {
+        const min = Number.parseInt(match[1].replace(/\./g, ""), 10)
+        const max = Number.parseInt(match[2].replace(/\./g, ""), 10)
+        return Math.round((min + max) / 2)
+      }
+      return 0
+    }
+    return (gift as HoneymoonGift).value
   }
 
-  const handleConfirmSelection = () => {
-    if (selectedGift && giftType === "house") {
+// CRC-16/CCITT-FALSE -> retorna string hex (ex: "9C99")
+const calculateCRC16 = (payload: string): string => {
+  let crc = 0xffff
+  for (let i = 0; i < payload.length; i++) {
+    crc ^= payload.charCodeAt(i) << 8
+    for (let j = 0; j < 8; j++) {
+      if ((crc & 0x8000) !== 0) {
+        crc = ((crc << 1) ^ 0x1021) & 0xffff
+      } else {
+        crc = (crc << 1) & 0xffff
+      }
+    }
+  }
+  return crc.toString(16).toUpperCase().padStart(4, "0")
+}
+
+// Gera BR Code (Copia e Cola) — sanitiza o TXID (apenas A-Z a-z 0-9) e garante <=25 chars.
+// amount em reais (ex: 2400.00). Passe giftId para gerar TXID referente ao item.
+const generatePixData = (amount: number, giftId?: string) => {
+  const pixKey = "eac0ac2b-4f4b-4e11-8a7b-342d96061aee"
+  const merchantName = "Rafaela Teixeira Alvares"
+  const merchantCity = "SAO PAULO"
+
+  // --- gera txid legível + sanitiza para permitir apenas alfanuméricos ---
+  const rawTxid = giftId ? `GFT${giftId}-${Date.now().toString(36).toUpperCase().slice(-8)}` : `AUTO${Date.now().toString(36).toUpperCase().slice(-10)}`
+  const txidSanitized = rawTxid.replace(/[^A-Za-z0-9]/g, "").slice(0, 25) // só letras e dígitos, max 25 chars
+
+  // --- Merchant Account Info (tag 26) corretamente montada ---
+  const guiTag = "00" + "14" + "BR.GOV.BCB.PIX"                       // 00 + length(14) + GUI
+  const keyTag = "01" + String(pixKey.length).padStart(2, "0") + pixKey // 01 + length + chave
+  const maiValue = guiTag + keyTag
+  const mai = "26" + String(maiValue.length).padStart(2, "0") + maiValue
+
+  // --- Tags fixas ---
+  const mcc = "52040000"
+  const currency = "5303986" // 986 = BRL
+
+  // --- Valor (tag 54) : somente se amount > 0 ---
+  let valueField = ""
+  if (typeof amount === "number" && amount > 0) {
+    const amtStr = amount.toFixed(2) // ex: "2400.00"
+    valueField = "54" + String(amtStr.length).padStart(2, "0") + amtStr
+  }
+
+  // --- País, Nome, Cidade ---
+  const country = "5802BR"
+  const nameField = "59" + String(merchantName.length).padStart(2, "0") + merchantName
+  const cityField = "60" + String(merchantCity.length).padStart(2, "0") + merchantCity
+
+  // --- TXID (tag 62 subtag 05) com txid sanitizado ---
+  const sub05 = "05" + String(txidSanitized.length).padStart(2, "0") + txidSanitized
+  const additionalData = "62" + String(sub05.length).padStart(2, "0") + sub05
+
+  // --- Monta payload sem CRC ---
+  const payloadNoCrc = ["000201", mai, mcc, currency, valueField, country, nameField, cityField, additionalData].join("")
+
+  // --- Calcula CRC e retorna full BR Code ---
+  const toCrc = payloadNoCrc + "6304"
+  const crc = calculateCRC16(toCrc)
+  return toCrc + crc
+}
+
+  const handleWhatsAppRedirect = (contact: "lucas" | "rafaela") => {
+    if (!selectedGift) return
+
+    const giftName = "name" in selectedGift ? selectedGift.name : selectedGift.description
+    const phoneNumber = contact === "lucas" ? "5562991639973" : "5562982720235" // Atualize com números reais
+    const message = `Olá! Gostaria de confirmar que vou presentear com: ${giftName}`
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+
+    if (giftType === "house") {
       setHouseGifts((prev) =>
-        prev.map((gift) => (gift.id === selectedGift.id ? { ...gift, isSelected: true, selectedBy: "Você" } : gift)),
+        prev.map((g) =>
+          g.id === selectedGift.id
+            ? { ...g, isSelected: true, selectedBy: contact === "lucas" ? "Lucas" : "Rafaela" }
+            : g,
+        ),
+      )
+    } else {
+      setHoneymoonGifts((prev) =>
+        prev.map((g) =>
+          g.id === selectedGift.id
+            ? { ...g, isSelected: true, selectedBy: contact === "lucas" ? "Lucas" : "Rafaela" }
+            : g,
+        ),
       )
     }
-    setSelectedGift(null)
-  }
 
-  const generatePixQR = (value: number) => {
-    return `/placeholder.svg?height=200&width=200&query=QR code PIX R$${value}`
-  }
-
-  const generatePixLink = (value: number) => {
-    return `pix://pay?amount=${value}&description=Presente%20Casamento%20Rafaela%20Lucas`
+    setIsModalOpen(false)
+    window.open(whatsappUrl, "_blank")
   }
 
   return (
@@ -228,8 +437,8 @@ export default function ListaPresentesPage() {
             <h1 className="text-3xl md:text-4xl font-light tracking-wider mb-2">LISTA DE PRESENTES</h1>
             <p className="text-[#cb9072] text-sm tracking-widest">SUA PRESENÇA JÁ É O MAIOR PRESENTE</p>
             <p className="text-lg mt-8  text-[#f8f7f3]/80 max-w-2xl mx-auto">
-              Mas se quiser nos ajudar a começar nossa nova vida juntos ou
-              contribuir para nossa lua de mel, ficamos muito gratos!
+              Mas se quiser nos ajudar a começar nossa nova vida juntos ou contribuir para nossa lua de mel, ficamos
+              muito gratos!
             </p>
           </div>
 
@@ -320,110 +529,124 @@ export default function ListaPresentesPage() {
                           <p className="font-medium text-[#cb9072] mb-4">{gift.priceRange}</p>
 
                           {!gift.isSelected ? (
-                            <div className="space-y-2">
-                              <Dialog>
-                                <DialogTrigger asChild>
-                                  <Button
-                                    className="w-full bg-[#eec7b4] text-[#080a09] hover:bg-[#cb9072] hover:text-[#f8f7f3] rounded-none"
-                                    onClick={() => handleSelectHouseGift(gift, "physical")}
-                                  >
-                                    Comprar Fisicamente
-                                  </Button>
-                                </DialogTrigger>
-                                <DialogContent className="max-w-md bg-[#5c4d46] border-[#cb9072] text-[#f8f7f3]">
+                            <Dialog open={isModalOpen && selectedGift?.id === gift.id} onOpenChange={setIsModalOpen}>
+                              <DialogTrigger asChild>
+                                <Button
+                                  className="w-full bg-[#eec7b4] text-[#080a09] hover:bg-[#cb9072] hover:text-[#f8f7f3] rounded-none"
+                                  onClick={() => handleSelectGift(gift, "house")}
+                                >
+                                  Selecionar
+                                </Button>
+                              </DialogTrigger>
+                              {selectedGift?.id === gift.id && (
+                                <DialogContent className="max-w-2xl bg-[#5c4d46] border-[#cb9072] text-[#f8f7f3] rounded-none">
                                   <DialogHeader>
-                                    <DialogTitle className="text-[#f8f7f3]">Comprar {gift.name}</DialogTitle>
+                                    <DialogTitle className="text-2xl font-light tracking-wider text-[#eec7b4]">
+                                      {gift.name}
+                                    </DialogTitle>
                                   </DialogHeader>
-                                  <div className="space-y-4">
-                                    <p className="text-[#eec7b4]">
-                                      Você pode comprar este presente em uma das lojas abaixo:
-                                    </p>
-                                    <div className="space-y-2">
-                                      {gift.storeLinks.map((store) => (
+                                  <div className="space-y-8">
+                                    <div className="border-b border-[#5c4d46] pb-6">
+                                      <div className="flex items-center gap-3 mb-4">
+                                        <div className="h-1 w-8 bg-[#eec7b4]"></div>
+                                        <h4 className="text-lg font-light tracking-wider text-[#eec7b4]">
+                                          COMPRAR FISICAMENTE
+                                        </h4>
+                                      </div>
+                                      <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">
+                                        Você pode comprar este presente em uma das seguintes lojas:
+                                      </p>
+                                      <div className="space-y-2">
+                                        {gift.storeLinks.map((store) => (
+                                          <a
+                                            key={store.name}
+                                            href={store.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="block"
+                                          >
+                                            <Button
+                                              variant="outline"
+                                              className="w-full bg-transparent border border-[#cb9072] text-[#eec7b4] hover:bg-[#cb9072] hover:text-[#080a09] hover:border-[#eec7b4] rounded-none transition-all"
+                                            >
+                                              {store.name}
+                                            </Button>
+                                          </a>
+                                        ))}
+                                      </div>
+                                    </div>
+
+                                    <div className="border-b border-[#5c4d46] pb-6">
+                                      <div className="flex items-center gap-3 mb-4">
+                                        <div className="h-1 w-8 bg-[#eec7b4]"></div>
+                                        <h4 className="text-lg font-light tracking-wider text-[#eec7b4]">ENVIAR PIX</h4>
+                                      </div>
+                                      <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">
+                                        Valor aproximado:{" "}
+                                        <span className="text-[#cb9072] font-semibold">
+                                          R$ {getAveragePriceForPix(gift).toLocaleString()}
+                                        </span>
+                                      </p>
+                                      <div className="space-y-3">
+                                        <div className="p-4 bg-[#080a09] rounded border border-[#cb9072]/30">
+                                          <p className="text-xs text-[#f8f7f3]/50 mb-2">Chave PIX (Copia e Cola):</p>
+                                          <p className="text-xs break-all text-[#eec7b4] font-mono leading-relaxed">
+                                            {generatePixData(getAveragePriceForPix(gift), gift.id)}
+                                          </p>
+                                        </div>
+                                        <Button
+                                          variant="outline"
+                                          onClick={() =>
+                                            navigator.clipboard.writeText(
+                                              generatePixData(getAveragePriceForPix(gift), gift.id),
+                                            )
+                                          }
+                                          className="w-full border border-[#cb9072] text-[#eec7b4] hover:bg-[#cb9072] hover:text-[#080a09] bg-transparent rounded-none transition-all"
+                                        >
+                                          Copiar PIX
+                                        </Button>
+                                      </div>
+                                    </div>
+
+                                    <div>
+                                      <div className="flex items-center gap-3 mb-4">
+                                        <div className="h-1 w-8 bg-[#eec7b4]"></div>
+                                        <h4 className="text-lg font-light tracking-wider text-[#eec7b4]">
+                                          CONFIRMAR SELEÇÃO
+                                        </h4>
+                                      </div>
+                                      <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">
+                                        Para confirmar sua seleção, envie uma mensagem direto para o Lucas ou para a
+                                        Rafaela:
+                                      </p>
+                                      <div className="flex flex-wrap gap-3 justify-center">
                                         <a
-                                          key={store.name}
-                                          href={store.url}
+                                          href={`https://wa.me/5562991639973?text=Olá! Gostaria de confirmar que vou presentear com: ${gift.name}`}
                                           target="_blank"
                                           rel="noopener noreferrer"
-                                          className="block"
+                                          onClick={() => handleWhatsAppRedirect("lucas")}
+                                          className="inline-flex items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] transition-colors group"
                                         >
-                                          <Button
-                                            variant="outline"
-                                            className="w-full bg-transparent border-[#eec7b4] text-[#eec7b4] hover:bg-[#eec7b4] hover:text-[#080a09] rounded-none"
-                                          >
-                                            {store.name}
-                                          </Button>
+                                          <MessageCircle className="w-4 h-4" />
+                                          <span className="font-light tracking-wide">Lucas</span>
                                         </a>
-                                      ))}
-                                    </div>
-                                    <Button
-                                      onClick={handleConfirmSelection}
-                                      className="w-full bg-[#eec7b4] text-[#080a09] hover:bg-[#cb9072] hover:text-[#f8f7f3] rounded-none"
-                                    >
-                                      Confirmar Seleção
-                                    </Button>
-                                  </div>
-                                </DialogContent>
-                              </Dialog>
-
-                              <Dialog>
-                                <DialogTrigger asChild>
-                                  <Button
-                                    variant="outline"
-                                    className="w-full border-[#eec7b4] text-[#eec7b4] hover:bg-[#eec7b4] hover:text-[#080a09] bg-transparent rounded-none"
-                                    onClick={() => handleSelectHouseGift(gift, "pix")}
-                                  >
-                                    Enviar PIX
-                                  </Button>
-                                </DialogTrigger>
-                                <DialogContent className="max-w-md bg-[#5c4d46] border-[#cb9072] text-[#f8f7f3]">
-                                  <DialogHeader>
-                                    <DialogTitle className="text-[#f8f7f3]">PIX - {gift.name}</DialogTitle>
-                                  </DialogHeader>
-                                  <div className="space-y-4 text-center">
-                                    <p className="text-[#eec7b4]">
-                                      Escaneie o QR Code ou use o link abaixo para enviar o PIX:
-                                    </p>
-                                    <img
-                                      src={
-                                        generatePixQR(
-                                          Number(gift.priceRange.split(" - ")[0].replace("R$", "").replace(".", "")),
-                                        ) || "/placeholder.svg"
-                                      }
-                                      alt="QR Code PIX"
-                                      className="w-48 h-48 mx-auto border border-[#cb9072] rounded"
-                                    />
-                                    <div className="space-y-2">
-                                      <p className="text-sm text-[#eec7b4]">Ou copie o link:</p>
-                                      <div className="p-2 bg-[#080a09] rounded text-xs break-all text-[#f8f7f3]">
-                                        {generatePixLink(
-                                          Number(gift.priceRange.split(" - ")[0].replace("R$", "").replace(".", "")),
-                                        )}
+                                        <span className="text-[#f8f7f3]/40">•</span>
+                                        <a
+                                          href={`https://wa.me/5562982720235?text=Olá! Gostaria de confirmar que vou presentear com: ${gift.name}`}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          onClick={() => handleWhatsAppRedirect("rafaela")}
+                                          className="inline-flex items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] transition-colors group"
+                                        >
+                                          <MessageCircle className="w-4 h-4" />
+                                          <span className="font-light tracking-wide">Rafaela</span>
+                                        </a>
                                       </div>
-                                      <Button
-                                        variant="outline"
-                                        onClick={() =>
-                                          navigator.clipboard.writeText(
-                                            generatePixLink(
-                                              Number(gift.priceRange.split(" - ")[0].replace("R$", "").replace(".", "")),
-                                            ),
-                                          )
-                                        }
-                                        className="w-full border-[#eec7b4] text-[#eec7b4] hover:bg-[#eec7b4] hover:text-[#080a09] bg-transparent rounded-none"
-                                      >
-                                        Copiar Link PIX
-                                      </Button>
                                     </div>
-                                    <Button
-                                      onClick={handleConfirmSelection}
-                                      className="w-full bg-[#eec7b4] text-[#080a09] hover:bg-[#cb9072] hover:text-[#f8f7f3] rounded-none"
-                                    >
-                                      Confirmar Seleção
-                                    </Button>
                                   </div>
                                 </DialogContent>
-                              </Dialog>
-                            </div>
+                              )}
+                            </Dialog>
                           ) : (
                             <Button disabled className="w-full bg-[#5c4d46] text-[#eec7b4] rounded-none">
                               Já Selecionado
@@ -463,43 +686,93 @@ export default function ListaPresentesPage() {
                         </div>
                         <p className="text-sm text-[#eec7b4] mb-4">{gift.description}</p>
 
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button
-                              className="w-full bg-[#eec7b4] text-[#080a09] hover:bg-[#cb9072] hover:text-[#f8f7f3] rounded-none"
-                              onClick={() => handleSelectHoneymoonGift(gift)}
-                            >
-                              Enviar PIX
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent className="max-w-md bg-[#5c4d46] border-[#cb9072] text-[#f8f7f3]">
-                            <DialogHeader>
-                              <DialogTitle className="text-[#f8f7f3]">PIX - R$ {gift.value.toLocaleString()}</DialogTitle>
-                            </DialogHeader>
-                            <div className="space-y-4 text-center">
-                              <p className="text-[#eec7b4]">{gift.description}</p>
-                              <img
-                                src={generatePixQR(gift.value) || "/placeholder.svg"}
-                                alt="QR Code PIX"
-                                className="w-48 h-48 mx-auto border border-[#cb9072] rounded"
-                              />
-                              <div className="space-y-2">
-                                <p className="text-sm text-[#eec7b4]">Ou copie o link:</p>
-                                <div className="p-2 bg-[#080a09] rounded text-xs break-all text-[#f8f7f3]">
-                                  {generatePixLink(gift.value)}
+                        {!gift.isSelected ? (
+                          <Dialog open={isModalOpen && selectedGift?.id === gift.id} onOpenChange={setIsModalOpen}>
+                            <DialogTrigger asChild>
+                              <Button
+                                className="w-full bg-[#eec7b4] text-[#080a09] hover:bg-[#cb9072] hover:text-[#f8f7f3] rounded-none"
+                                onClick={() => handleSelectGift(gift, "honeymoon")}
+                              >
+                                Selecionar
+                              </Button>
+                            </DialogTrigger>
+                            {selectedGift?.id === gift.id && (
+                              <DialogContent className="max-w-2xl bg-[#5c4d46] border-[#cb9072] text-[#f8f7f3] rounded-none">
+                                <DialogHeader>
+                                  <DialogTitle className="text-2xl font-light tracking-wider text-[#eec7b4]">
+                                    R$ {gift.value.toLocaleString()} - {gift.description}
+                                  </DialogTitle>
+                                </DialogHeader>
+                                <div className="space-y-8">
+                                  <div className="border-b border-[#5c4d46] pb-6">
+                                    <div className="flex items-center gap-3 mb-4">
+                                      <div className="h-1 w-8 bg-[#eec7b4]"></div>
+                                      <h4 className="text-lg font-light tracking-wider text-[#eec7b4]">ENVIAR PIX</h4>
+                                    </div>
+                                    <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">{gift.description}</p>
+                                    <div className="space-y-3">
+                                      <div className="p-4 bg-[#080a09] rounded border border-[#cb9072]/30">
+                                        <p className="text-xs text-[#f8f7f3]/50 mb-2">Chave PIX (Copia e Cola):</p>
+                                        <p className="text-xs break-all text-[#eec7b4] font-mono leading-relaxed">
+                                          {generatePixData(gift.value, gift.id)}
+                                        </p>
+                                      </div>
+                                      <Button
+                                        variant="outline"
+                                        onClick={() =>
+                                          navigator.clipboard.writeText(generatePixData(gift.value, gift.id))
+                                        }
+                                        className="w-full border border-[#cb9072] text-[#eec7b4] hover:bg-[#cb9072] hover:text-[#080a09] bg-transparent rounded-none transition-all"
+                                      >
+                                        Copiar PIX
+                                      </Button>
+                                    </div>
+                                  </div>
+
+                                  <div>
+                                    <div className="flex items-center gap-3 mb-4">
+                                      <div className="h-1 w-8 bg-[#eec7b4]"></div>
+                                      <h4 className="text-lg font-light tracking-wider text-[#eec7b4]">
+                                        CONFIRMAR SELEÇÃO
+                                      </h4>
+                                    </div>
+                                    <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">
+                                      Para confirmar sua seleção, envie uma mensagem direto para o Lucas ou para a
+                                      Rafaela:
+                                    </p>
+                                    <div className="flex flex-wrap gap-3 justify-center">
+                                      <a
+                                        href={`https://wa.me/5562991639973?text=Olá! Gostaria de confirmar que vou presentear com: R$ ${gift.value}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={() => handleWhatsAppRedirect("lucas")}
+                                        className="inline-flex items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] transition-colors group"
+                                      >
+                                        <MessageCircle className="w-4 h-4" />
+                                        <span className="font-light tracking-wide">Lucas</span>
+                                      </a>
+                                      <span className="text-[#f8f7f3]/40">•</span>
+                                      <a
+                                        href={`https://wa.me/5562982720235?text=Olá! Gostaria de confirmar que vou presentear com: R$ ${gift.value}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={() => handleWhatsAppRedirect("rafaela")}
+                                        className="inline-flex items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] transition-colors group"
+                                      >
+                                        <MessageCircle className="w-4 h-4" />
+                                        <span className="font-light tracking-wide">Rafaela</span>
+                                      </a>
+                                    </div>
+                                  </div>
                                 </div>
-                                <Button
-                                  variant="outline"
-                                  onClick={() => navigator.clipboard.writeText(generatePixLink(gift.value))}
-                                  className="w-full border-[#eec7b4] text-[#eec7b4] hover:bg-[#eec7b4] hover:text-[#080a09] bg-transparent rounded-none"
-                                >
-                                  Copiar Link PIX
-                                </Button>
-                              </div>
-                              <p className="text-xs text-[#eec7b4]">Obrigado por contribuir para nossa lua de mel!</p>
-                            </div>
-                          </DialogContent>
-                        </Dialog>
+                              </DialogContent>
+                            )}
+                          </Dialog>
+                        ) : (
+                          <Button disabled className="w-full bg-[#5c4d46] text-[#eec7b4] rounded-none">
+                            Já Selecionado
+                          </Button>
+                        )}
                       </div>
                     </Card>
                   ))}
