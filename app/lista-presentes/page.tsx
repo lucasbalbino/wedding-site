@@ -68,16 +68,16 @@ export default function ListaPresentesPage() {
   }, [])
 
   const honeymoonGifts: HoneymoonGift[] = [
-    { id: "h1", value: 50, description: "Gelato em Veneza: um delicioso sorvete artesanal", image: "/h1.jpg" },
-    { id: "h2", value: 500, description: "Passeio de gôndola em Veneza: uma experiência romântica", image: "/h2.jpg" },
-    { id: "h3", value: 300, description: "Jantar em um restaurante típico em Roma: uma noite especial", image: "/h3.jpg" },
-    { id: "h4", value: 2500, description: "Passeio de balão na Toscana: uma aventura inesquecível", image: "/h4.jpg" },
-    { id: "h5", value: 200, description: "Tour gastronômico em Florença: degustação de queijos e embutidos", image: "/h5.jpg" },
-    { id: "h6", value: 100, description: "Entrada para o Coliseu em Roma: uma visita histórica", image: "/h6.jpg" },
-    { id: "h7", value: 800, description: "Passeio de barco pelo Canal de Veneza: passeio mais privativo", image: "/h7.jpg" },
-    { id: "h8", value: 400, description: "Experiência de culinária em Roma: aula de preparo de massas", image: "/h8.jpg" },
-    { id: "h9", value: 150, description: "Passeio de bicicleta pela Toscana: uma manhã explorando a região", image: "/h9.jpg" },
-    { id: "h10", value: 300, description: "Visita guiada aos Museus Vaticanos: um tour cultural", image: "/h10.jpg" },
+    { id: "h1", value: 50, description: "Gelato em Veneza: um delicioso sorvete artesanal", image: "/h1.jpeg" },
+    { id: "h2", value: 500, description: "Passeio de gôndola em Veneza: uma experiência romântica", image: "/h2.jpeg" },
+    { id: "h3", value: 300, description: "Jantar em um restaurante típico em Roma: uma noite especial", image: "/h3.jpeg" },
+    { id: "h4", value: 2500, description: "Passeio de balão na Toscana: uma aventura inesquecível", image: "/h4.jpeg" },
+    { id: "h5", value: 200, description: "Tour gastronômico em Florença: degustação de queijos e embutidos", image: "/h5.jpeg" },
+    { id: "h6", value: 100, description: "Entrada para o Coliseu em Roma: uma visita histórica", image: "/h6.jpeg" },
+    { id: "h7", value: 800, description: "Passeio de barco pelo Canal de Veneza: passeio mais privativo", image: "/h7.jpeg" },
+    { id: "h8", value: 400, description: "Experiência de culinária em Roma: aula de preparo de massas", image: "/h8.jpeg" },
+    { id: "h9", value: 150, description: "Passeio de bicicleta pela Toscana: uma manhã explorando a região", image: "/h9.jpeg" },
+    { id: "h10", value: 300, description: "Visita guiada aos Museus Vaticanos: um tour cultural", image: "/h10.jpeg" },
     { id: "h11", value: 200, description: "Passeio de trem de alta velocidade: traslado entre cidades", image: "/honeymoon-extension.png" },
     { id: "h12", value: 1000, description: "Experiência de spa em um hotel na Toscana: relaxamento e bem-estar", image: "/dream-honeymoon.png" },
     { id: "h13", value: 250, description: "Tour de arte em Florença: visita às galerias e museus", image: "/dream-honeymoon.png" },
@@ -306,7 +306,7 @@ export default function ListaPresentesPage() {
                           <img
                             src={gift.image || "/placeholder.svg"}
                             alt={gift.name}
-                            className="w-full h-48 object-cover"
+                            className="w-full h-64 object-cover"
                           />
                           {gift.isSelected && (
                             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
@@ -445,7 +445,7 @@ export default function ListaPresentesPage() {
                   </h2>
                   <p className="text-[#f8f7f3]/80">Contribua para tornar nossa lua de mel ainda mais especial</p>
                   <p className="text-xs text-[#cb9072] mt-2">
-                    {filteredHouseGifts.length} de {houseGifts.length} itens na faixa de preço selecionada
+                    {filteredHoneymoonGifts.length} de {honeymoonGifts.length} itens na faixa de preço selecionada
                   </p>
                 </div>
 
@@ -455,9 +455,9 @@ export default function ListaPresentesPage() {
                       <img
                         src={gift.image || "/placeholder.svg"}
                         alt={gift.description}
-                        className="w-full h-32 object-cover"
+                        className="w-full h-64 object-cover"
                       />
-                      <div className="p-4">
+                      <div className="p-4 pt-0">
                         <div className="text-xl sm:text-2xl font-bold text-[#f8f7f3] mb-2">
                           R$ {gift.value.toLocaleString()}
                         </div>
