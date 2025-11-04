@@ -146,70 +146,70 @@ export default function ListaPresentesPage() {
         id: "h11",
         value: 200,
         description: "Passeio de trem de alta velocidade: traslado entre cidades",
-        image: "/honeymoon-extension.png",
+        image: "/h11.jpeg",
         isSelected: false,
       },
       {
         id: "h12",
         value: 1000,
         description: "Experiência de spa em um hotel na Toscana: relaxamento e bem-estar",
-        image: "/dream-honeymoon.png",
+        image: "/h12.jpeg",
         isSelected: false,
       },
       {
         id: "h13",
         value: 250,
         description: "Tour de arte em Florença: visita às galerias e museus",
-        image: "/dream-honeymoon.png",
+        image: "/h13.jpeg",
         isSelected: false,
       },
       {
         id: "h14",
         value: 1500,
         description: "Noite em um hotel boutique em Veneza: uma experiência romântica",
-        image: "/dream-honeymoon.png",
+        image: "/h14.jpeg",
         isSelected: false,
       },
       {
         id: "h15",
         value: 600,
         description: "Passeio de barco pelo Lago de Como: uma tarde especial",
-        image: "/dream-honeymoon.png",
+        image: "/h15.jpeg",
         isSelected: false,
       },
       {
         id: "h16",
         value: 150,
         description: "Aula de italiano em Roma: uma introdução à língua",
-        image: "/dream-honeymoon.png",
+        image: "/h16.jpeg",
         isSelected: false,
       },
       {
         id: "h17",
         value: 250,
         description: "Passeio de tuk-tuk em Roma: um tour divertido",
-        image: "/dream-honeymoon.png",
+        image: "/h17.jpeg",
         isSelected: false,
       },
       {
         id: "h18",
         value: 1000,
         description: "Experiência de fotografia em Veneza: sessão de fotos profissional",
-        image: "/dream-honeymoon.png",
+        image: "/h18.jpeg",
         isSelected: false,
       },
       {
         id: "h19",
         value: 400,
         description: "Passeio de barco pelo Rio Arno em Florença: linda vista",
-        image: "/dream-honeymoon.png",
+        image: "/h19.jpeg",
         isSelected: false,
       },
       {
         id: "h20",
         value: 800,
         description: "Jantar em um restaurante com vista para o Coliseu: uma noite inesquecível",
-        image: "/dream-honeymoon.png",
+        image: "/h20.jpeg",
         isSelected: false,
       },
     ]
@@ -539,20 +539,20 @@ export default function ListaPresentesPage() {
                                   className="w-full bg-[#eec7b4] text-[#080a09] hover:bg-[#cb9072] hover:text-[#f8f7f3] rounded-none"
                                   onClick={() => handleSelectGift(gift, "house")}
                                 >
-                                  Selecionar
+                                  Ver detalhes
                                 </Button>
                               </DialogTrigger>
                               {selectedGift?.id === gift.id && (
                                 <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto bg-[#5c4d46] border-[#cb9072] text-[#f8f7f3] rounded-none">
                                   <DialogHeader>
-                                    <DialogTitle className="text-2xl font-light tracking-wider text-[#eec7b4]">
+                                    <DialogTitle className="text-2xl tracking-wider text-[#eec7b4]">
                                       {gift.name}
                                     </DialogTitle>
                                   </DialogHeader>
                                   <div className="space-y-6">
-                                    <div className="pb-4">
+                                    <div className="pt-8 pb-8">
                                       <div className="flex items-center gap-3 mb-4">
-                                        <h4 className="text-lg font-light tracking-wider text-[#eec7b4]">
+                                        <h4 className="font-light tracking-wider text-[#eec7b4]">
                                           COMPRAR FISICAMENTE
                                         </h4>
                                       </div>
@@ -694,7 +694,7 @@ export default function ListaPresentesPage() {
                                 className="w-full bg-[#eec7b4] text-[#080a09] hover:bg-[#cb9072] hover:text-[#f8f7f3] rounded-none"
                                 onClick={() => handleSelectGift(gift, "honeymoon")}
                               >
-                                Selecionar
+                                Ver detalhes
                               </Button>
                             </DialogTrigger>
                             {selectedGift?.id === gift.id && (
