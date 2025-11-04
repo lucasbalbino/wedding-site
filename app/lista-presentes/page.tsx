@@ -68,18 +68,26 @@ export default function ListaPresentesPage() {
   }, [])
 
   const honeymoonGifts: HoneymoonGift[] = [
-    { id: "h1", value: 50, description: "Contribuição para jantar romântico", image: "/romantic-dinner.png" },
-    { id: "h2", value: 100, description: "Passeio turístico", image: "/vibrant-city-square.png" },
-    { id: "h3", value: 150, description: "Spa para o casal", image: "/couple-spa.png" },
-    { id: "h4", value: 200, description: "Excursão de um dia", image: "/scenic-day-trip.png" },
-    { id: "h5", value: 250, description: "Jantar em restaurante especial", image: "/fine-dining-experience.png" },
-    { id: "h6", value: 300, description: "Atividade de aventura", image: "/mountain-biking-adventure.png" },
-    { id: "h7", value: 500, description: "Hospedagem em hotel boutique", image: "/boutique-hotel.png" },
-    { id: "h8", value: 750, description: "Cruzeiro romântico", image: "/romantic-cruise.png" },
-    { id: "h9", value: 1000, description: "Experiência gastronômica exclusiva", image: "/exclusive-dining.png" },
-    { id: "h10", value: 1500, description: "Pacote de atividades premium", image: "/premium-activities.png" },
-    { id: "h11", value: 2000, description: "Extensão da lua de mel", image: "/honeymoon-extension.png" },
-    { id: "h12", value: 5000, description: "Lua de mel dos sonhos", image: "/dream-honeymoon.png" },
+    { id: "h1", value: 50, description: "Gelato em Veneza: um delicioso sorvete artesanal", image: "/h1.jpg" },
+    { id: "h2", value: 500, description: "Passeio de gôndola em Veneza: uma experiência romântica", image: "/h2.jpg" },
+    { id: "h3", value: 300, description: "Jantar em um restaurante típico em Roma: uma noite especial", image: "/h3.jpg" },
+    { id: "h4", value: 2500, description: "Passeio de balão na Toscana: uma aventura inesquecível", image: "/h4.jpg" },
+    { id: "h5", value: 200, description: "Tour gastronômico em Florença: degustação de queijos e embutidos", image: "/h5.jpg" },
+    { id: "h6", value: 100, description: "Entrada para o Coliseu em Roma: uma visita histórica", image: "/h6.jpg" },
+    { id: "h7", value: 800, description: "Passeio de barco pelo Canal de Veneza: passeio mais privativo", image: "/h7.jpg" },
+    { id: "h8", value: 400, description: "Experiência de culinária em Roma: aula de preparo de massas", image: "/h8.jpg" },
+    { id: "h9", value: 150, description: "Passeio de bicicleta pela Toscana: uma manhã explorando a região", image: "/h9.jpg" },
+    { id: "h10", value: 300, description: "Visita guiada aos Museus Vaticanos: um tour cultural", image: "/h10.jpg" },
+    { id: "h11", value: 200, description: "Passeio de trem de alta velocidade: traslado entre cidades", image: "/honeymoon-extension.png" },
+    { id: "h12", value: 1000, description: "Experiência de spa em um hotel na Toscana: relaxamento e bem-estar", image: "/dream-honeymoon.png" },
+    { id: "h13", value: 250, description: "Tour de arte em Florença: visita às galerias e museus", image: "/dream-honeymoon.png" },
+    { id: "h14", value: 1500, description: "Noite em um hotel boutique em Veneza: uma experiência romântica", image: "/dream-honeymoon.png" },
+    { id: "h15", value: 600, description: "Passeio de barco pelo Lago de Como: uma tarde especial", image: "/dream-honeymoon.png" },
+    { id: "h16", value: 150, description: "Aula de italiano em Roma: uma introdução à língua", image: "/dream-honeymoon.png" },
+    { id: "h17", value: 250, description: "Passeio de tuk-tuk em Roma: um tour divertido", image: "/dream-honeymoon.png" },
+    { id: "h18", value: 1000, description: "Experiência de fotografia em Veneza: sessão de fotos profissional", image: "/dream-honeymoon.png" },
+    { id: "h19", value: 400, description: "Passeio de barco pelo Rio Arno em Florença: linda vista", image: "/dream-honeymoon.png" },
+    { id: "h20", value: 800, description: "Jantar em um restaurante com vista para o Coliseu: uma noite inesquecível", image: "/dream-honeymoon.png" },
   ]
 
   const extractPrice = (priceRange: string): number => {
