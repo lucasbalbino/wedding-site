@@ -550,14 +550,21 @@ export default function ListaPresentesPage() {
                                     </DialogTitle>
                                   </DialogHeader>
                                   <div className="space-y-6">
+                                    <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">
+                                      Para nos presentear com este item, você pode escolher entre nos dar ele fisicamente ou enviar o PIX com o valor correspondente:
+                                    </p>
+
                                     <div className="pt-8 pb-8">
                                       <div className="flex items-center gap-3 mb-4">
-                                        <h4 className="font-light tracking-wider text-[#eec7b4]">
+                                        <h4 className="text-lg font-light tracking-wider text-[#eec7b4]">
                                           COMPRAR FISICAMENTE
                                         </h4>
                                       </div>
+                                      <p className="text-sm text-[#f8f7f3]/70 font-bold mb-4 leading-relaxed">
+                                        Você pode comprar em qualquer loja que quiser!
+                                      </p>
                                       <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">
-                                        Você pode comprar este presente em uma das seguintes lojas:
+                                        Porém nós selecionamos o anúncio deste presente nos seguintes sites:
                                       </p>
                                       <div className="space-y-2">
                                         {gift.storeLinks.map((store) => (
@@ -579,65 +586,62 @@ export default function ListaPresentesPage() {
                                       </div>
                                     </div>
 
-                                    <div className="pb-4">
+                                    <div className="pt-8 pb-8">
                                       <div className="flex items-center gap-3 mb-4">
                                         <h4 className="text-lg font-light tracking-wider text-[#eec7b4]">ENVIAR PIX</h4>
                                       </div>
                                       <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">
-                                        Valor aproximado:{" "}
+                                        Para enviar o valor correspondente a este presente para nós, basta copiar o código PIX abaixo e colar no aplicativo do seu banco (valor R$ {" "}
                                         <span className="text-[#cb9072] font-semibold">
                                           R$ {getAveragePriceForPix(gift).toLocaleString()}
-                                        </span>
+                                        </span>)
                                       </p>
                                       <div className="space-y-3">
                                         <div className="p-4 bg-[#080a09] rounded border border-[#cb9072]/30">
                                           <p className="text-xs text-[#f8f7f3]/50 mb-2">Chave PIX (Copia e Cola):</p>
                                           <p className="text-xs break-all text-[#eec7b4] font-mono leading-relaxed">
-                                            {generatePixData(getAveragePriceForPix(gift), gift.id)}
+                                            {generatePixData(gift.value, gift.id)}
                                           </p>
+                                          <Button
+                                            variant="outline"
+                                            onClick={() =>
+                                              navigator.clipboard.writeText(generatePixData(gift.value, gift.id))
+                                            }
+                                            className="w-full border mt-4 border-[#cb9072] text-[#eec7b4] text-xs hover:bg-[#cb9072] hover:text-[#080a09] bg-transparent rounded-none transition-all duration-200 active:scale-95"
+                                          >
+                                            Copiar PIX
+                                          </Button>
                                         </div>
-                                        <Button
-                                          variant="outline"
-                                          onClick={() =>
-                                            navigator.clipboard.writeText(
-                                              generatePixData(getAveragePriceForPix(gift), gift.id),
-                                            )
-                                          }
-                                          className="w-full border border-[#cb9072] text-[#eec7b4] hover:bg-[#cb9072] hover:text-[#080a09] bg-transparent rounded-none transition-all duration-200 active:scale-95"
-                                        >
-                                          Copiar PIX
-                                        </Button>
                                       </div>
                                     </div>
 
                                     <div>
                                       <div className="flex items-center gap-3 mb-4">
-                                        <h4 className="text-lg font-light tracking-wider text-[#eec7b4]">
-                                          CONFIRMAR SELEÇÃO
-                                        </h4>
                                       </div>
+                                      <p className="text-sm font-bold text-[#f8f7f3]/70 mb-4 leading-relaxed">
+                                        Nos avise que você vai dar este presente!
+                                      </p>
                                       <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">
-                                        Para confirmar sua seleção, envie uma mensagem direto para o Lucas ou para a
-                                        Rafaela:
+                                        Basta clicar nos links abaixo e enviar uma mensagem de Whatsapp direto para o Lucas ou para a Rafaela:
                                       </p>
                                       <div className="flex flex-wrap gap-3 justify-center">
                                         <a
-                                          href={`https://wa.me/5562991639973?text=Olá! Gostaria de confirmar que vou presentear com: ${gift.name}`}
+                                          href={`https://wa.me/5562982720235?text=Olá! Gostaria de confirmar que vou presentear com: ${gift.description} (R$ ${gift.value})`}
                                           target="_blank"
                                           rel="noopener noreferrer"
                                           onClick={() => handleWhatsAppRedirect("lucas")}
-                                          className="inline-flex items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] active:text-[#0da050] active:scale-95 transition-all duration-200"
+                                          className="inline-flex text-lg items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] active:text-[#0da050] active:scale-95 transition-all duration-200"
                                         >
                                           <MessageCircle className="w-4 h-4" />
                                           <span className="font-light tracking-wide">Lucas</span>
                                         </a>
                                         <span className="text-[#f8f7f3]/40">•</span>
                                         <a
-                                          href={`https://wa.me/5562982720235?text=Olá! Gostaria de confirmar que vou presentear com: ${gift.name}`}
+                                          href={`https://wa.me/5562982720235?text=Olá! Gostaria de confirmar que vou presentear com: ${gift.description} (R$ ${gift.value})`}
                                           target="_blank"
                                           rel="noopener noreferrer"
                                           onClick={() => handleWhatsAppRedirect("rafaela")}
-                                          className="inline-flex items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] active:text-[#0da050] active:scale-95 transition-all duration-200"
+                                          className="inline-flex text-lg items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] active:text-[#0da050] active:scale-95 transition-all duration-200"
                                         >
                                           <MessageCircle className="w-4 h-4" />
                                           <span className="font-light tracking-wide">Rafaela</span>
@@ -700,63 +704,67 @@ export default function ListaPresentesPage() {
                             {selectedGift?.id === gift.id && (
                               <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto bg-[#5c4d46] border-[#cb9072] text-[#f8f7f3] rounded-none">
                                 <DialogHeader>
-                                  <DialogTitle className="text-2xl font-light tracking-wider text-[#eec7b4]">
-                                    R$ {gift.value.toLocaleString()} - {gift.description}
+                                  <DialogTitle className="text-2xl tracking-wider text-[#eec7b4]">
+                                    {gift.description}
                                   </DialogTitle>
                                 </DialogHeader>
                                 <div className="space-y-6">
-                                  <div className="pb-4">
+                                  <div className="pt-8 pb-8">
                                     <div className="flex items-center gap-3 mb-4">
-                                      <h4 className="text-lg font-light tracking-wider text-[#eec7b4]">ENVIAR PIX</h4>
+                                      <h4 className="font-light tracking-wider text-[#eec7b4]">ENVIAR PIX</h4>
                                     </div>
-                                    <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">{gift.description}</p>
+                                    <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">
+                                    Para enviar este presente para nós, basta copiar o código PIX abaixo e colar no aplicativo do seu banco (valor R$ {" "}
+                                        <span className="text-[#cb9072] font-semibold">
+                                          R$ {gift.value.toLocaleString()}
+                                        </span>)
+                                    </p>
                                     <div className="space-y-3">
                                       <div className="p-4 bg-[#080a09] rounded border border-[#cb9072]/30">
                                         <p className="text-xs text-[#f8f7f3]/50 mb-2">Chave PIX (Copia e Cola):</p>
                                         <p className="text-xs break-all text-[#eec7b4] font-mono leading-relaxed">
                                           {generatePixData(gift.value, gift.id)}
                                         </p>
+                                        <Button
+                                          variant="outline"
+                                          onClick={() =>
+                                            navigator.clipboard.writeText(generatePixData(gift.value, gift.id))
+                                          }
+                                          className="w-full border mt-4 border-[#cb9072] text-[#eec7b4] text-xs hover:bg-[#cb9072] hover:text-[#080a09] bg-transparent rounded-none transition-all duration-200 active:scale-95"
+                                        >
+                                          Copiar PIX
+                                        </Button>
                                       </div>
-                                      <Button
-                                        variant="outline"
-                                        onClick={() =>
-                                          navigator.clipboard.writeText(generatePixData(gift.value, gift.id))
-                                        }
-                                        className="w-full border border-[#cb9072] text-[#eec7b4] hover:bg-[#cb9072] hover:text-[#080a09] bg-transparent rounded-none transition-all duration-200 active:scale-95"
-                                      >
-                                        Copiar PIX
-                                      </Button>
                                     </div>
                                   </div>
 
                                   <div>
                                     <div className="flex items-center gap-3 mb-4">
-                                      <h4 className="text-lg font-light tracking-wider text-[#eec7b4]">
-                                        CONFIRMAR SELEÇÃO
-                                      </h4>
                                     </div>
+                                    <p className="text-sm font-bold text-[#f8f7f3]/70 mb-4 leading-relaxed">
+                                      Nos avise que você vai dar este presente!
+                                    </p>
                                     <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">
-                                      Para confirmar sua seleção, envie uma mensagem direto para o Lucas ou para a
-                                      Rafaela:
+                                      Basta clicar nos links abaixo e enviar uma mensagem de Whatsapp direto para o Lucas ou para a Rafaela:
                                     </p>
                                     <div className="flex flex-wrap gap-3 justify-center">
                                       <a
-                                        href={`https://wa.me/5562991639973?text=Olá! Gostaria de confirmar que vou presentear com: R$ ${gift.value}`}
+                                        href={`https://wa.me/5562982720235?text=Olá! Gostaria de confirmar que vou presentear com: ${gift.description} (R$ ${gift.value})`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         onClick={() => handleWhatsAppRedirect("lucas")}
-                                        className="inline-flex items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] active:text-[#0da050] active:scale-95 transition-all duration-200"
+                                        className="inline-flex text-lg items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] active:text-[#0da050] active:scale-95 transition-all duration-200"
                                       >
                                         <MessageCircle className="w-4 h-4" />
                                         <span className="font-light tracking-wide">Lucas</span>
                                       </a>
                                       <span className="text-[#f8f7f3]/40">•</span>
                                       <a
-                                        href={`https://wa.me/5562982720235?text=Olá! Gostaria de confirmar que vou presentear com: R$ ${gift.value}`}
+                                        href={`https://wa.me/5562982720235?text=Olá! Gostaria de confirmar que vou presentear com: ${gift.description} (R$ ${gift.value})`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         onClick={() => handleWhatsAppRedirect("rafaela")}
-                                        className="inline-flex items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] active:text-[#0da050] active:scale-95 transition-all duration-200"
+                                        className="inline-flex text-lg items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] active:text-[#0da050] active:scale-95 transition-all duration-200"
                                       >
                                         <MessageCircle className="w-4 h-4" />
                                         <span className="font-light tracking-wide">Rafaela</span>
