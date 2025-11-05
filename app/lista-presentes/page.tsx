@@ -600,12 +600,12 @@ export default function ListaPresentesPage() {
                                         <div className="p-4 bg-[#080a09] rounded border border-[#cb9072]/30">
                                           <p className="text-xs text-[#f8f7f3]/50 mb-2">Chave PIX (Copia e Cola):</p>
                                           <p className="text-xs break-all text-[#eec7b4] font-mono leading-relaxed">
-                                            {generatePixData(gift.value, gift.id)}
+                                            {generatePixData(getAveragePriceForPix(gift), gift.id)}
                                           </p>
                                           <Button
                                             variant="outline"
                                             onClick={() =>
-                                              navigator.clipboard.writeText(generatePixData(gift.value, gift.id))
+                                              navigator.clipboard.writeText(generatePixData(getAveragePriceForPix(gift), gift.id))
                                             }
                                             className="w-full border mt-4 border-[#cb9072] text-[#eec7b4] text-xs hover:bg-[#cb9072] hover:text-[#080a09] bg-transparent rounded-none transition-all duration-200 active:scale-95"
                                           >
