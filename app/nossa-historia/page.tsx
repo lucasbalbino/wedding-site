@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { usePhoneParam } from "@/hooks/use-phone-param"
@@ -13,7 +13,7 @@ interface TimelineEvent {
   image: string
 }
 
-export default function NossaHistoriaPage() {
+function TimelineContent() {
   const router = useRouter()
   const { addPhoneToUrl } = usePhoneParam()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -238,5 +238,13 @@ export default function NossaHistoriaPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function NossaHistoriaPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#080a09]" />}>
+      <TimelineContent />
+    </Suspense>
   )
 }
