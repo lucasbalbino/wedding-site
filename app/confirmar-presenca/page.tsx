@@ -92,7 +92,7 @@ function ConfirmarPresencaContent() {
                   <p className="text-lg mt-8  text-[#f8f7f3]/80 max-w-2xl mx-auto">
                     Basta rolar a página e escrever seu nome no campo indicado abaixo de "Confirme sua presença".
                   </p>
-                  <p className="text-lg mt-8  text-[#f8f7f3]/80 max-w-2xl mx-auto">
+                  <p className="text-lg mt-8 mb-16 text-[#f8f7f3]/80 max-w-2xl mx-auto">
                     Você vai ter que preencher os 4 últimos dígitos do celular cadastrado e pronto, já pode confirmar sua participação no nosso grande dia!
                   </p>
                   <div className="bg-[#5c4d46] border border-[#cb9072] rounded-lg overflow-hidden mt-8">
