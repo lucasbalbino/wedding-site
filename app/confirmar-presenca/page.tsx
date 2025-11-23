@@ -1,14 +1,15 @@
 "use client"
 
 import { useState, Suspense } from "react"
-import { useSearchParams } from "next/navigation"
+import { useSearchParams, useRouter } from "next/navigation"
 import { usePhoneParam } from "@/hooks/use-phone-param"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Menu, MessageCircle, X } from "lucide-react"
+import { MessageCircle, ArrowLeft } from "lucide-react"
 
 function ConfirmarPresencaContent() {
+  const router = useRouter()
   const searchParams = useSearchParams()
   const phoneFromUrl = searchParams.get("telefone")
   const { addPhoneToUrl } = usePhoneParam()
@@ -19,10 +20,39 @@ function ConfirmarPresencaContent() {
   return (
     <div className="min-h-screen bg-[#080a09] text-[#f8f7f3]">
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#080a09]/95 backdrop-blur-sm border-b border-[#5c4d46]/20">
-        <div className="px-4 py-4">
+        <div className="px-4 py-4 flex items-center justify-between lg:justify-center">
+          <button
+            onClick={() => router.back()}
+            className="lg:hidden text-[#f8f7f3] p-2 hover:text-[#eec7b4] transition-colors"
+            aria-label="Voltar"
+          >
+            <ArrowLeft className="w-6 h-6" />
+          </button>
+
+          <div className="hidden lg:flex items-center gap-12">
+            <Link
+              href={addPhoneToUrl("/")}
+              className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors font-light text-sm tracking-wide"
+            >
+              Início
+            </Link>
+            <Link
+              href={addPhoneToUrl("/lista-presentes")}
+              className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors font-light text-sm tracking-wide"
+            >
+              Lista de Presentes
+            </Link>
+            <Link
+              href={addPhoneToUrl("/informacoes")}
+              className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors font-light text-sm tracking-wide"
+            >
+              Informações Gerais
+            </Link>
+          </div>
+
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-[#f8f7f3] p-2"
+            className="lg:hidden text-[#f8f7f3] p-2 ml-auto"
             aria-label="Menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -60,7 +90,7 @@ function ConfirmarPresencaContent() {
         </div>
       </nav>
 
-      <div className="pt-20 pb-12 px-4">
+      <div className="pt-20 pb-12 px-4 pt-24">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <div className="flex justify-center mb-6">
@@ -75,8 +105,6 @@ function ConfirmarPresencaContent() {
             <h1 className="text-3xl md:text-4xl font-light tracking-wider mb-2">CONFIRMAR PRESENÇA</h1>
             <p className="text-[#cb9072] text-sm tracking-widest">SUA PRESENÇA É MUITO IMPORTANTE PARA NÓS</p>
           </div>
-
-          
 
           <section className="mb-16">
             <div className="border-t border-b border-[#5c4d46]/30 py-8 mb-8">
@@ -93,7 +121,8 @@ function ConfirmarPresencaContent() {
                     Basta rolar a página e escrever seu nome no campo indicado abaixo de "Confirme sua presença".
                   </p>
                   <p className="text-lg mt-8 mb-16 text-[#f8f7f3]/80 max-w-2xl mx-auto">
-                    Você vai ter que preencher os 4 últimos dígitos do celular cadastrado e pronto, já pode confirmar sua participação no nosso grande dia!
+                    Você vai ter que preencher os 4 últimos dígitos do celular cadastrado e pronto, já pode confirmar
+                    sua participação no nosso grande dia!
                   </p>
                   <div className="bg-[#5c4d46] border border-[#cb9072] rounded-lg overflow-hidden mt-8">
                     <style jsx>{`
@@ -131,13 +160,14 @@ function ConfirmarPresencaContent() {
                     >
                       <MessageCircle className="w-4 h-4" />
                       Rafaela
-                    </a>.
+                    </a>
+                    .
                   </p>
                 </div>
               </div>
             </div>
           </section>
-                
+
           <section className="mb-16">
             <div className="border-t border-b border-[#5c4d46]/30 py-8 mb-8">
               <h2 className="text-2xl md:text-3xl font-light tracking-wider text-center mb-8 text-[#eec7b4]">
@@ -152,7 +182,7 @@ function ConfirmarPresencaContent() {
                   <Link href={`/lista-presentes${phoneParam}`}>
                     <Button
                       variant="outline"
-                      className="w-full border border-white text-white py-2 rounded-none font-medium text-base flex items-center justify-center gap-2"
+                      className="w-full border border-white text-white py-3 rounded-none font-medium text-base flex items-center justify-center gap-2 bg-transparent"
                     >
                       Ver Lista de Presentes
                     </Button>
@@ -161,7 +191,7 @@ function ConfirmarPresencaContent() {
               </div>
             </div>
           </section>
-                
+
           <section className="mb-16">
             <div className="border-t border-b border-[#5c4d46]/30 py-8 mb-8">
               <h2 className="text-2xl md:text-3xl font-light tracking-wider text-center mb-8 text-[#eec7b4]">
@@ -171,12 +201,12 @@ function ConfirmarPresencaContent() {
               <div className="space-y-8">
                 <div className="mt-8 text-center">
                   <p className="text-lg mt-8 mb-8 text-[#f8f7f3]/80 max-w-2xl mx-auto">
-                    Tem alguma dúvida sobre detalhes no nosso casamento? 
+                    Tem alguma dúvida sobre detalhes no nosso casamento?
                   </p>
                   <Link href={`/informacoes${phoneParam}`}>
                     <Button
                       variant="outline"
-                      className="w-full border border-white text-white py-2 rounded-none font-medium text-base flex items-center justify-center gap-2"
+                      className="w-full border border-white text-white py-3 rounded-none font-medium text-base flex items-center justify-center gap-2 bg-transparent"
                     >
                       Ver Informações gerais
                     </Button>
