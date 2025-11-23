@@ -194,7 +194,7 @@ export default function ListaPresentesPage() {
       {
         id: "h18",
         value: 1000,
-        description: "Experiência de fotografia em Veneza: sessão de fotos profissional",
+        description: " Espetáculo de ópera em Verona: noite inesquecível na Arena",
         image: "/h18.jpeg",
         isSelected: false,
       },
@@ -212,6 +212,41 @@ export default function ListaPresentesPage() {
         image: "/h20.jpeg",
         isSelected: false,
       },
+      {
+        id: "h21",
+        value: 800,
+        description: "Casa de Julieta em Verona: tour e mensagem no muro do amor",
+        image: "/h21.jpeg",
+        isSelected: false,
+      },
+      {
+        id: "h22",
+        value: 800,
+        description: "Café com vista para a Arena de Verona: pausa charmosa",
+        image: "/h22.jpeg",
+        isSelected: false,
+      },
+      {
+        id: "h23",
+        value: 800,
+        description: "Bate e volta à Suíça (Lugano ou Lucerna): dia nos Alpes",
+        image: "/h23.jpeg",
+        isSelected: false,
+      },
+      {
+        id: "h24",
+        value: 800,
+        description: "Aula de culinária toscana com chef local: experiência autêntica",
+        image: "/h24.jpeg",
+        isSelected: false,
+      },
+      {
+        id: "h25",
+        value: 800,
+        description: "Passeio a cavalo na Toscana: momento romântico no campo",
+        image: "/h25.jpeg",
+        isSelected: false,
+      }
     ]
     setHoneymoonGifts(honeymoonData)
   }, [])
@@ -523,7 +558,7 @@ export default function ListaPresentesPage() {
                           />
                           {gift.isSelected && (
                             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                              <Badge className="bg-[#eec7b4] text-[#080a09]">Selecionado por {gift.selectedBy}</Badge>
+                              <Badge className="bg-[#eec7b4] text-[#080a09]">Selecionado</Badge>
                             </div>
                           )}
                         </div>
@@ -591,7 +626,7 @@ export default function ListaPresentesPage() {
                                         <h4 className="text-lg font-light tracking-wider text-[#eec7b4]">ENVIAR PIX</h4>
                                       </div>
                                       <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">
-                                        Para enviar o valor correspondente a este presente para nós, basta copiar o código PIX abaixo e colar no aplicativo do seu banco (valor R$ {" "}
+                                        Para enviar o valor correspondente a este presente para nós, basta copiar o código PIX abaixo e colar no aplicativo do seu banco (valor {" "}
                                         <span className="text-[#cb9072] font-semibold">
                                           R$ {getAveragePriceForPix(gift).toLocaleString()}
                                         </span>)

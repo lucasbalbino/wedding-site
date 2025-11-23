@@ -68,6 +68,15 @@ function InformacoesContent() {
             </div>
             <h1 className="text-3xl md:text-4xl font-light tracking-wider mb-2">INFORMAÇÕES GERAIS</h1>
             <p className="text-[#cb9072] text-sm tracking-widest">TUDO QUE VOCÊ PRECISA SABER</p>
+            <p className="text-lg mt-8  text-[#f8f7f3]/80 max-w-2xl mx-auto">
+              Abaixo trazemos algumas informações muito importantes para você começar a se preparar para estar conosco no nosso dia especial.
+            </p>
+            <p className="text-lg mt-8  text-[#f8f7f3]/80 max-w-2xl mx-auto">
+              Ao longo do tempo, traremos mais novidades! Já pode ir se organizando.
+            </p>
+            <p className="text-lg mt-8  text-[#f8f7f3]/80 max-w-2xl mx-auto">
+              Esperamos você!
+            </p>
           </div>
 
           <section className="mb-16">
