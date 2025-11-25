@@ -13,6 +13,15 @@ export const metadata: Metadata = {
   title: "Rafaela & Lucas - 20.04.2026",
   description: "Celebre conosco nosso grande dia",
   generator: "v0.app",
+  icons: {
+    icon: "/monograma-white.png",
+  },
+  openGraph: {
+    image: "/rafaelaelucas-imagem-fundo.png",
+    title: "Rafaela & Lucas - 20.04.2026",
+    description: "Celebre conosco nosso grande dia",
+    type: "website",
+  },
 }
 
 export default function RootLayout({
