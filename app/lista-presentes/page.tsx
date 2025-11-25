@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useMemo } from "react"
-import { useSearchParams } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { usePhoneParam } from "@/hooks/use-phone-param"
 import Link from "next/link"
 import Image from "next/image"
@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Slider } from "@/components/ui/slider"
-import { Loader2, MessageCircle } from "lucide-react"
+import { Loader2, MessageCircle, ArrowLeft } from "lucide-react"
 
 interface HouseGift {
   id: string
@@ -34,6 +34,7 @@ interface HoneymoonGift {
 }
 
 export default function ListaPresentesPage() {
+  const router = useRouter()
   const searchParams = useSearchParams()
   const phoneFromUrl = searchParams.get("telefone")
   const phoneParam = phoneFromUrl ? `?telefone=${phoneFromUrl}` : ""
@@ -214,28 +215,28 @@ export default function ListaPresentesPage() {
       },
       {
         id: "h21",
-        value: 800,
+        value: 50,
         description: "Casa de Julieta em Verona: tour e mensagem no muro do amor",
         image: "/h21.jpeg",
         isSelected: false,
       },
       {
         id: "h22",
-        value: 800,
+        value: 50,
         description: "Café com vista para a Arena de Verona: pausa charmosa",
         image: "/h22.jpeg",
         isSelected: false,
       },
       {
         id: "h23",
-        value: 800,
+        value: 1500,
         description: "Bate e volta à Suíça (Lugano ou Lucerna): dia nos Alpes",
         image: "/h23.jpeg",
         isSelected: false,
       },
       {
         id: "h24",
-        value: 800,
+        value: 1800,
         description: "Aula de culinária toscana com chef local: experiência autêntica",
         image: "/h24.jpeg",
         isSelected: false,
@@ -246,7 +247,7 @@ export default function ListaPresentesPage() {
         description: "Passeio a cavalo na Toscana: momento romântico no campo",
         image: "/h25.jpeg",
         isSelected: false,
-      }
+      },
     ]
     setHoneymoonGifts(honeymoonData)
   }, [])
@@ -310,11 +311,16 @@ export default function ListaPresentesPage() {
     if (giftType === "house") {
       const hGift = gift as HouseGift
       const priceRange = hGift.priceRange
-      const match = priceRange.match(/R\$\s*(\d+(?:\.\d+)*)\s*-\s*R\$\s*(\d+(?:\.\d+)*)/i)
-      if (match) {
-        const min = Number.parseInt(match[1].replace(/\./g, ""), 10)
-        const max = Number.parseInt(match[2].replace(/\./g, ""), 10)
+      const rangeMatch = priceRange.match(/R\$\s*(\d+(?:\.\d+)*)\s*-\s*R\$\s*(\d+(?:\.\d+)*)/i)
+      if (rangeMatch) {
+        const min = Number.parseInt(rangeMatch[1].replace(/\./g, ""), 10)
+        const max = Number.parseInt(rangeMatch[2].replace(/\./g, ""), 10)
         return Math.round((min + max) / 2)
+      }
+      // Tratando valor único (ex: "R$ 150")
+      const singleMatch = priceRange.match(/R\$\s*(\d+(?:\.\d+)*)/i)
+      if (singleMatch) {
+        return Number.parseInt(singleMatch[1].replace(/\./g, ""), 10)
       }
       return 0
     }
@@ -420,10 +426,88 @@ export default function ListaPresentesPage() {
   return (
     <div className="min-h-screen bg-[#080a09] text-[#f8f7f3]">
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#080a09]/95 backdrop-blur-sm border-b border-[#5c4d46]/20">
-        <div className="px-4 py-4">
+        <div className="px-4 py-4 flex items-center justify-between">
+          <button
+            onClick={() => router.back()}
+            className="text-[#f8f7f3] p-2 hover:text-[#eec7b4] transition-colors"
+            aria-label="Voltar"
+          >
+            <ArrowLeft className="w-6 h-6" />
+          </button>
+
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-[#f8f7f3] p-2"
+            className="text-[#f8f7f3] p-2 ml-auto"
+            aria-label="Menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+
+          {isMobileMenuOpen && (
+            <div className="absolute top-full left-4 right-4 bg-[#080a09]/95 backdrop-blur-sm rounded-lg p-4 mt-2 border border-[#5c4d46]/20">
+              <div className="flex flex-col space-y-3">
+                <Link
+                  href={addPhoneToUrl("/")}
+                  className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Início
+                </Link>
+                <Link
+                  href={addPhoneToUrl("/confirmar-presenca")}
+                  className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Confirmar Presença
+                </Link>
+                <Link
+                  href={addPhoneToUrl("/informacoes")}
+                  className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Informações Gerais
+                </Link>
+              </div>
+            </div>
+          )}
+        </div>
+      </nav>
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#080a09]/95 backdrop-blur-sm border-b border-[#5c4d46]/20">
+        <div className="px-4 py-4 flex items-center justify-between lg:justify-center">
+          <button
+            onClick={() => router.back()}
+            className="lg:hidden text-[#f8f7f3] p-2 hover:text-[#eec7b4] transition-colors"
+            aria-label="Voltar"
+          >
+            <ArrowLeft className="w-6 h-6" />
+          </button>
+
+          <div className="hidden lg:flex items-center gap-12">
+            <Link
+              href={addPhoneToUrl("/")}
+              className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors font-light text-sm tracking-wide"
+            >
+              Início
+            </Link>
+            <Link
+              href={addPhoneToUrl("/confirmar-presenca")}
+              className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors font-light text-sm tracking-wide"
+            >
+              Confirmar Presença
+            </Link>
+            <Link
+              href={addPhoneToUrl("/informacoes")}
+              className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors font-light text-sm tracking-wide"
+            >
+              Informações Gerais
+            </Link>
+          </div>
+
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="lg:hidden text-[#f8f7f3] p-2 ml-auto"
             aria-label="Menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -461,7 +545,7 @@ export default function ListaPresentesPage() {
         </div>
       </nav>
 
-      <div className="pt-20 pb-12 px-4">
+      <div className="pt-20 pb-12 px-4 pt-24">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <div className="flex justify-center mb-6">
@@ -571,7 +655,7 @@ export default function ListaPresentesPage() {
                             <Dialog open={isModalOpen && selectedGift?.id === gift.id} onOpenChange={setIsModalOpen}>
                               <DialogTrigger asChild>
                                 <Button
-                                  className="w-full bg-[#eec7b4] text-[#080a09] hover:bg-[#cb9072] hover:text-[#f8f7f3] rounded-none"
+                                  className="w-full bg-[#eec7b4] text-[#080a09] hover:bg-[#cb9072] hover:text-[#f8f7f3] py-3 rounded-none"
                                   onClick={() => handleSelectGift(gift, "house")}
                                 >
                                   Ver detalhes
@@ -586,7 +670,8 @@ export default function ListaPresentesPage() {
                                   </DialogHeader>
                                   <div className="space-y-6">
                                     <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">
-                                      Para nos presentear com este item, você pode escolher entre nos dar ele fisicamente ou enviar o PIX com o valor correspondente:
+                                      Para nos presentear com este item, você pode escolher entre nos dar ele
+                                      fisicamente ou enviar o PIX com o valor correspondente:
                                     </p>
 
                                     <div className="pt-8 pb-8">
@@ -626,10 +711,12 @@ export default function ListaPresentesPage() {
                                         <h4 className="text-lg font-light tracking-wider text-[#eec7b4]">ENVIAR PIX</h4>
                                       </div>
                                       <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">
-                                        Para enviar o valor correspondente a este presente para nós, basta copiar o código PIX abaixo e colar no aplicativo do seu banco (valor {" "}
+                                        Para enviar o valor correspondente a este presente para nós, basta copiar o
+                                        código PIX abaixo e colar no aplicativo do seu banco (valor{" "}
                                         <span className="text-[#cb9072] font-semibold">
                                           R$ {getAveragePriceForPix(gift).toLocaleString()}
-                                        </span>)
+                                        </span>
+                                        )
                                       </p>
                                       <div className="space-y-3">
                                         <div className="p-4 bg-[#080a09] rounded border border-[#cb9072]/30">
@@ -640,7 +727,9 @@ export default function ListaPresentesPage() {
                                           <Button
                                             variant="outline"
                                             onClick={() =>
-                                              navigator.clipboard.writeText(generatePixData(getAveragePriceForPix(gift), gift.id))
+                                              navigator.clipboard.writeText(
+                                                generatePixData(getAveragePriceForPix(gift), gift.id),
+                                              )
                                             }
                                             className="w-full border mt-4 border-[#cb9072] text-[#eec7b4] text-xs hover:bg-[#cb9072] hover:text-[#080a09] bg-transparent rounded-none transition-all duration-200 active:scale-95"
                                           >
@@ -651,17 +740,17 @@ export default function ListaPresentesPage() {
                                     </div>
 
                                     <div>
-                                      <div className="flex items-center gap-3 mb-4">
-                                      </div>
+                                      <div className="flex items-center gap-3 mb-4"></div>
                                       <p className="text-sm font-bold text-[#f8f7f3]/70 mb-4 leading-relaxed">
                                         Nos avise que você vai dar este presente!
                                       </p>
                                       <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">
-                                        Basta clicar nos links abaixo e enviar uma mensagem de Whatsapp direto para o Lucas ou para a Rafaela:
+                                        Basta clicar nos links abaixo e enviar uma mensagem de Whatsapp direto para o
+                                        Lucas ou para a Rafaela:
                                       </p>
                                       <div className="flex flex-wrap gap-3 justify-center">
                                         <a
-                                          href={`https://wa.me/5562982720235?text=Olá! Gostaria de confirmar que vou presentear com: ${gift.description} (R$ ${gift.value})`}
+                                          href={`https://wa.me/5562982720235?text=Olá! Gostaria de confirmar que vou presentear com: ${gift.description} (R$ ${getAveragePriceForPix(gift)})`}
                                           target="_blank"
                                           rel="noopener noreferrer"
                                           onClick={() => handleWhatsAppRedirect("lucas")}
@@ -672,7 +761,7 @@ export default function ListaPresentesPage() {
                                         </a>
                                         <span className="text-[#f8f7f3]/40">•</span>
                                         <a
-                                          href={`https://wa.me/5562982720235?text=Olá! Gostaria de confirmar que vou presentear com: ${gift.description} (R$ ${gift.value})`}
+                                          href={`https://wa.me/5562982720235?text=Olá! Gostaria de confirmar que vou presentear com: ${gift.description} (R$ ${getAveragePriceForPix(gift)})`}
                                           target="_blank"
                                           rel="noopener noreferrer"
                                           onClick={() => handleWhatsAppRedirect("rafaela")}
@@ -712,7 +801,7 @@ export default function ListaPresentesPage() {
                   </p>
                 </div>
 
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                   {filteredHoneymoonGifts.map((gift) => (
                     <Card key={gift.id} className="overflow-hidden bg-[#5c4d46] border-[#cb9072]">
                       <img
@@ -749,10 +838,12 @@ export default function ListaPresentesPage() {
                                       <h4 className="font-light tracking-wider text-[#eec7b4]">ENVIAR PIX</h4>
                                     </div>
                                     <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">
-                                    Para enviar este presente para nós, basta copiar o código PIX abaixo e colar no aplicativo do seu banco (valor R$ {" "}
-                                        <span className="text-[#cb9072] font-semibold">
-                                          R$ {gift.value.toLocaleString()}
-                                        </span>)
+                                      Para enviar este presente para nós, basta copiar o código PIX abaixo e colar no
+                                      aplicativo do seu banco (valor R${" "}
+                                      <span className="text-[#cb9072] font-semibold">
+                                        R$ {gift.value.toLocaleString()}
+                                      </span>
+                                      )
                                     </p>
                                     <div className="space-y-3">
                                       <div className="p-4 bg-[#080a09] rounded border border-[#cb9072]/30">
@@ -774,13 +865,13 @@ export default function ListaPresentesPage() {
                                   </div>
 
                                   <div>
-                                    <div className="flex items-center gap-3 mb-4">
-                                    </div>
+                                    <div className="flex items-center gap-3 mb-4"></div>
                                     <p className="text-sm font-bold text-[#f8f7f3]/70 mb-4 leading-relaxed">
                                       Nos avise que você vai dar este presente!
                                     </p>
                                     <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">
-                                      Basta clicar nos links abaixo e enviar uma mensagem de Whatsapp direto para o Lucas ou para a Rafaela:
+                                      Basta clicar nos links abaixo e enviar uma mensagem de Whatsapp direto para o
+                                      Lucas ou para a Rafaela:
                                     </p>
                                     <div className="flex flex-wrap gap-3 justify-center">
                                       <a

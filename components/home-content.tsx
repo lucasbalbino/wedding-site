@@ -49,15 +49,39 @@ export function HomeContent() {
         <div className="absolute inset-0 bg-black/70"></div>
       </div>
 
-      <nav className="relative z-50 p-4">
-        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-white p-2">
+      <nav className="relative z-50 p-4 lg:p-6">
+        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="lg:hidden text-white p-2">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
 
+        {/* Desktop Navigation */}
+        <div className="hidden lg:block">
+          <div className="flex items-center justify-center gap-12">
+            <Link
+              href={addPhoneToUrl("/confirmar-presenca")}
+              className="text-white hover:text-accent transition-colors font-light text-sm tracking-wide"
+            >
+              Confirmar Presença
+            </Link>
+            <Link
+              href={addPhoneToUrl("/lista-presentes")}
+              className="text-white hover:text-accent transition-colors font-light text-sm tracking-wide"
+            >
+              Lista de Presentes
+            </Link>
+            <Link
+              href={addPhoneToUrl("/informacoes")}
+              className="text-white hover:text-accent transition-colors font-light text-sm tracking-wide"
+            >
+              Informações Gerais
+            </Link>
+          </div>
+        </div>
+
         {isMobileMenuOpen && (
-          <div className="absolute top-full left-4 right-4 bg-black/90 backdrop-blur-sm rounded-lg p-4 mt-2">
+          <div className="lg:hidden absolute top-full left-4 right-4 bg-black/90 backdrop-blur-sm rounded-lg p-4 mt-2">
             <div className="flex flex-col space-y-3">
               <Link
                 href={addPhoneToUrl("/confirmar-presenca")}
@@ -85,35 +109,39 @@ export function HomeContent() {
         )}
       </nav>
 
-      <div className="relative z-10 flex flex-col items-center justify-center px-4 text-center text-white mt-16">
-        <div className="mb-8 mt-16">
-          <div className="mb-4 mt-16 flex justify-center">
+      <div className="relative z-10 flex flex-col items-center justify-center px-4 text-center text-white mt-16 lg:mt-32 pb-48 md:pb-56 lg:pb-0">
+        <div className="mb-8 mt-16 lg:mt-0">
+          <div className="mb-4 mt-16 lg:mt-0 flex justify-center">
             <Image
               src="/monograma-white.png"
               alt="Monograma Rafaela & Lucas"
               width={120}
               height={120}
-              className="w-24 h-24 md:w-32 md:h-32"
+              className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40"
             />
           </div>
 
-          <h1 className="font-sans text-sm font-bold tracking-[0.2em] mb-2">RAFAELA <span className="text-primary">&amp;</span> LUCAS</h1>
+          <h1 className="font-sans text-sm md:text-base lg:text-lg font-bold tracking-[0.2em] mb-2">
+            RAFAELA <span className="text-primary">&amp;</span> LUCAS
+          </h1>
 
-          <p className="font-sans text-2xl tracking-[0.15em] font-light mb-4 mt-6">SAVE THE DATE</p>
+          <p className="font-sans text-2xl md:text-3xl lg:text-5xl tracking-[0.15em] font-light mb-4 mt-6">
+            SAVE THE DATE
+          </p>
 
-          <p className="font-sans text-sm tracking-[0.1em] font-light mb-4">20.04.26</p>
+          <p className="font-sans text-sm md:text-base lg:text-lg tracking-[0.1em] font-light mb-4">20.04.26</p>
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-4 right-4 z-10 space-y-3">
-        <Link href={addPhoneToUrl("/confirmar-presenca")}>
-          <button className="w-full bg-accent text-primary-foreground py-2 mb-2 rounded-none font-medium text-base">
+      <div className="absolute bottom-8 left-4 right-4 lg:bottom-16 z-10 max-w-2xl mx-auto lg:flex lg:gap-4 lg:flex-row lg:w-auto lg:left-1/2 lg:-translate-x-1/2 space-y-3 lg:space-y-0">
+        <Link href={addPhoneToUrl("/confirmar-presenca")} className="flex-1">
+          <button className="w-full bg-accent text-primary-foreground py-3 rounded-none font-medium text-base hover:opacity-90 transition-opacity">
             Confirmar Presença
           </button>
         </Link>
 
-        <Link href={addPhoneToUrl("/lista-presentes")}>
-          <button className="w-full border border-white text-white py-2 rounded-none font-medium text-base flex items-center justify-center gap-2">
+        <Link href={addPhoneToUrl("/lista-presentes")} className="flex-1">
+          <button className="w-full border border-white text-white py-3 rounded-none font-medium text-base flex items-center justify-center gap-2 hover:bg-white/10 transition-colors">
             Lista de Presentes
           </button>
         </Link>

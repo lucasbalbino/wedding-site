@@ -1,22 +1,53 @@
 "use client"
 
 import { useState, Suspense } from "react"
+import { useRouter } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { usePhoneParam } from "@/hooks/use-phone-param"
-import { MapPin, Clock, Calendar, Instagram } from "lucide-react"
+import { MapPin, Clock, Calendar, Instagram, ArrowLeft } from "lucide-react"
 
 function InformacoesContent() {
+  const router = useRouter()
   const { addPhoneToUrl } = usePhoneParam()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
     <div className="min-h-screen bg-[#080a09] text-[#f8f7f3]">
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#080a09]/95 backdrop-blur-sm border-b border-[#5c4d46]/20">
-        <div className="px-4 py-4">
+        <div className="px-4 py-4 flex items-center justify-between lg:justify-center">
+          <button
+            onClick={() => router.back()}
+            className="lg:hidden text-[#f8f7f3] p-2 hover:text-[#eec7b4] transition-colors"
+            aria-label="Voltar"
+          >
+            <ArrowLeft className="w-6 h-6" />
+          </button>
+
+          <div className="hidden lg:flex items-center gap-12">
+            <Link
+              href={addPhoneToUrl("/")}
+              className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors font-light text-sm tracking-wide"
+            >
+              Início
+            </Link>
+            <Link
+              href={addPhoneToUrl("/confirmar-presenca")}
+              className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors font-light text-sm tracking-wide"
+            >
+              Confirmar Presença
+            </Link>
+            <Link
+              href={addPhoneToUrl("/lista-presentes")}
+              className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors font-light text-sm tracking-wide"
+            >
+              Lista de Presentes
+            </Link>
+          </div>
+
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-[#f8f7f3] p-2"
+            className="lg:hidden text-[#f8f7f3] p-2 ml-auto"
             aria-label="Menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -54,7 +85,8 @@ function InformacoesContent() {
         </div>
       </nav>
 
-      <div className="pt-20 pb-12 px-4">
+
+      <div className="pt-20 pb-12 px-4 pt-24">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <div className="flex justify-center mb-6">
@@ -69,47 +101,46 @@ function InformacoesContent() {
             <h1 className="text-3xl md:text-4xl font-light tracking-wider mb-2">INFORMAÇÕES GERAIS</h1>
             <p className="text-[#cb9072] text-sm tracking-widest">TUDO QUE VOCÊ PRECISA SABER</p>
             <p className="text-lg mt-8  text-[#f8f7f3]/80 max-w-2xl mx-auto">
-              Abaixo trazemos algumas informações muito importantes para você começar a se preparar para estar conosco no nosso dia especial.
+              Abaixo trazemos algumas informações muito importantes para você começar a se preparar para estar conosco
+              no nosso dia especial.
             </p>
             <p className="text-lg mt-8  text-[#f8f7f3]/80 max-w-2xl mx-auto">
               Ao longo do tempo, traremos mais novidades! Já pode ir se organizando.
             </p>
-            <p className="text-lg mt-8  text-[#f8f7f3]/80 max-w-2xl mx-auto">
-              Esperamos você!
-            </p>
+            <p className="text-lg mt-8  text-[#f8f7f3]/80 max-w-2xl mx-auto">Esperamos você!</p>
           </div>
 
-          <section className="mb-16">
-            <div className="border-t border-b border-[#5c4d46]/30 py-8 mb-8">
-              <h2 className="text-2xl md:text-3xl font-light tracking-wider text-center mb-8 text-[#eec7b4]">
+          <section className="mb-16 lg:mb-24">
+            <div className="border-t border-b border-[#5c4d46]/30 py-8 mb-8 lg:py-12 lg:mb-12">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-wider text-center mb-8 lg:mb-12 text-[#eec7b4]">
                 DETALHES DO CASAMENTO
               </h2>
 
-              <div className="space-y-8">
+              <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
                 {/* Data */}
-                <div className="flex items-start gap-4">
-                  <Calendar className="w-6 h-6 text-[#cb9072] flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="text-lg font-medium mb-1 text-[#eec7b4]">Data</h3>
+                <div className="flex flex-col items-center md:items-start gap-4">
+                  <Calendar className="w-6 h-6 lg:w-8 lg:h-8 text-[#cb9072]" />
+                  <div className="text-center md:text-left">
+                    <h3 className="text-lg lg:text-xl font-medium mb-2 text-[#eec7b4]">Data</h3>
                     <p className="text-[#f8f7f3]/80">20 de Abril de 2026</p>
                   </div>
                 </div>
 
                 {/* Horário */}
-                <div className="flex items-start gap-4">
-                  <Clock className="w-6 h-6 text-[#cb9072] flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="text-lg font-medium mb-1 text-[#eec7b4]">Horário</h3>
+                <div className="flex flex-col items-center md:items-start gap-4">
+                  <Clock className="w-6 h-6 lg:w-8 lg:h-8 text-[#cb9072]" />
+                  <div className="text-center md:text-left">
+                    <h3 className="text-lg lg:text-xl font-medium mb-2 text-[#eec7b4]">Horário</h3>
                     <p className="text-[#f8f7f3]/80">16h00</p>
                   </div>
                 </div>
 
                 {/* Local */}
-                <div className="flex items-start gap-4">
-                  <MapPin className="w-6 h-6 text-[#cb9072] flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="text-lg font-medium mb-2 text-[#eec7b4]">Local</h3>
-                    <p className="text-xl font-light mb-2">Kauai Eventos</p>
+                <div className="flex flex-col items-center md:items-start gap-4">
+                  <MapPin className="w-6 h-6 lg:w-8 lg:h-8 text-[#cb9072]" />
+                  <div className="text-center md:text-left">
+                    <h3 className="text-lg lg:text-xl font-medium mb-2 text-[#eec7b4]">Local</h3>
+                    <p className="text-xl lg:text-2xl font-light mb-2">Kauai Eventos</p>
                     <p className="text-[#f8f7f3]/80 text-sm mb-2">
                       Alameda Juazeiro do Norte, 475 - Parque Amazonia
                       <br />
@@ -130,11 +161,11 @@ function InformacoesContent() {
             </div>
           </section>
 
-          <section className="mb-16">
-            <h2 className="text-2xl md:text-3xl font-light tracking-wider text-center mb-8 text-[#eec7b4]">
+          <section className="mb-16 lg:mb-24">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-wider text-center mb-8 lg:mb-12 text-[#eec7b4]">
               COMO CHEGAR
             </h2>
-            <div className="w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden border border-[#5c4d46]/30">
+            <div className="w-full h-[400px] md:h-[500px] lg:h-[600px] rounded-lg overflow-hidden border border-[#5c4d46]/30">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3820.915552545354!2d-49.2833295248499!3d-16.731064884048468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935ef0cc11037763%3A0x6fef5190e0275407!2sKauai%20Eventos!5e0!3m2!1spt-BR!2sbr!4v1760155069666!5m2!1spt-BR!2sbr"
                 width="100%"
