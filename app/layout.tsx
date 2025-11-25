@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     url: "https://rafaelaelucas.com.br",
     images: [
       {
-        url: "https://rafaelaelucas.com.br/rafaelaelucas-imagem-fundo.png",
+        url: "/rafaelaelucas-imagem-fundo.png",
         width: 1200,
         height: 630,
         alt: "Rafaela & Lucas - 20.04.2026",
