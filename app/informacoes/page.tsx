@@ -6,6 +6,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { usePhoneParam } from "@/hooks/use-phone-param"
 import { MapPin, Clock, Calendar, Instagram, ArrowLeft } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 function InformacoesContent() {
   const router = useRouter()
@@ -43,6 +44,12 @@ function InformacoesContent() {
             >
               Lista de Presentes
             </Link>
+            <Link
+              href={addPhoneToUrl("/dicas-goiania")}
+              className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors font-light text-sm tracking-wide"
+            >
+              Dicas Goiânia
+            </Link>
           </div>
 
           <button
@@ -79,12 +86,18 @@ function InformacoesContent() {
                 >
                   Lista de Presentes
                 </Link>
+                <Link
+                  href={addPhoneToUrl("/dicas-goiania")}
+                  className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Dicas Goiânia
+                </Link>
               </div>
             </div>
           )}
         </div>
       </nav>
-
 
       <div className="pt-20 pb-12 px-4 pt-24">
         <div className="max-w-4xl mx-auto">
@@ -187,6 +200,30 @@ function InformacoesContent() {
                 <MapPin className="w-4 h-4" />
                 Abrir no Google Maps
               </a>
+            </div>
+          </section>
+
+          <section className="mb-16 lg:mb-24">
+            <div className="border-t border-b border-[#5c4d46]/30 py-8 mb-8">
+              <h2 className="text-2xl md:text-3xl font-light tracking-wider text-center mb-8 text-[#eec7b4]">
+                DICAS DE GOIÂNIA E REGIÃO
+              </h2>
+
+              <div className="space-y-8">
+                <div className="mt-8 text-center">
+                  <p className="text-lg mt-8 mb-8 text-[#f8f7f3]/80 max-w-2xl mx-auto">
+                    Vindo de fora? Confira nossas sugestões de lugares para conhecer em Goiânia e cidades próximas!
+                  </p>
+                  <Link href={addPhoneToUrl("/dicas-goiania")}>
+                    <Button
+                      variant="outline"
+                      className="w-full border border-white text-white py-3 rounded-none font-medium text-base flex items-center justify-center gap-2 bg-transparent hover:bg-white/10 active:scale-95 transition-all"
+                    >
+                      Ver Dicas e Sugestões
+                    </Button>
+                  </Link>
+                </div>
+              </div>
             </div>
           </section>
         </div>

@@ -48,6 +48,12 @@ function ConfirmarPresencaContent() {
             >
               Informações Gerais
             </Link>
+            <Link
+              href={addPhoneToUrl("/dicas-goiania")}
+              className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors font-light text-sm tracking-wide"
+            >
+              Dicas Goiânia
+            </Link>
           </div>
 
           <button
@@ -83,6 +89,13 @@ function ConfirmarPresencaContent() {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Informações Gerais
+                </Link>
+                <Link
+                  href={addPhoneToUrl("/dicas-goiania")}
+                  className="text-[#f8f7f3] hover:text-[#eec7b4] transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Dicas Goiânia
                 </Link>
               </div>
             </div>

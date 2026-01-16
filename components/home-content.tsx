@@ -77,6 +77,12 @@ export function HomeContent() {
             >
               Informações Gerais
             </Link>
+            <Link
+              href={addPhoneToUrl("/dicas-goiania")}
+              className="text-white hover:text-accent transition-colors font-light text-sm tracking-wide"
+            >
+              Dicas Goiânia
+            </Link>
           </div>
         </div>
 
@@ -103,6 +109,13 @@ export function HomeContent() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Informações Gerais
+              </Link>
+              <Link
+                href={addPhoneToUrl("/dicas-goiania")}
+                className="text-white hover:text-accent transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Dicas Goiânia
               </Link>
             </div>
           </div>
