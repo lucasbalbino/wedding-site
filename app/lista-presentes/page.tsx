@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Slider } from "@/components/ui/slider"
-import { Loader2, MessageCircle, ArrowLeft, ExternalLink, Store } from "lucide-react"
+import { Loader2, MessageCircle, ArrowLeft, ExternalLink, Store, MapPin, Copy, Check } from "lucide-react"
 
 interface HouseGift {
   id: string
@@ -300,6 +300,13 @@ export default function ListaPresentesPage() {
   const [giftType, setGiftType] = useState<"house" | "honeymoon">("house")
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isStoreListOpen, setIsStoreListOpen] = useState(false)
+  const [copiedPix, setCopiedPix] = useState(false)
+
+  const handleCopyPix = () => {
+    navigator.clipboard.writeText("eac0ac2b-4f4b-4e11-8a7b-342d96061aee")
+    setCopiedPix(true)
+    setTimeout(() => setCopiedPix(false), 2000)
+  }
 
   const storeLinks = [
     { name: "Amazon", url: "https://www.amazon.com.br/hz/wishlist/ls/38YMI2OGRB0BJ?ref_=wl_share" },
@@ -981,6 +988,102 @@ export default function ListaPresentesPage() {
               </section>
             </TabsContent>
           </Tabs>
+
+          {/* Secao Endereco de Entrega e PIX */}
+          <div className="mt-16 border-t border-[#cb9072]/30 pt-12 space-y-12">
+
+            {/* Aviso WhatsApp */}
+            <div className="text-center">
+              <h3 className="text-xl lg:text-2xl font-light tracking-widest text-[#eec7b4] mb-4">
+                NOS AVISE QUE VAI DAR ESTE PRESENTE!
+              </h3>
+              <p className="text-sm lg:text-base text-[#f8f7f3]/70 leading-relaxed max-w-lg mx-auto mb-6">
+                Basta clicar nos links abaixo e enviar uma mensagem de WhatsApp direto para o Lucas ou para a Rafaela:
+              </p>
+              <div className="flex items-center justify-center gap-4">
+                <a
+                  href="https://wa.me/5562991639973?text=Oi Lucas! Gostaria de avisar sobre o presente que escolhi para vocês!"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] active:text-[#0da050] active:scale-95 transition-all duration-200 text-lg"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  <span className="font-light tracking-wide">Lucas</span>
+                </a>
+                <span className="text-[#f8f7f3]/40 text-lg">{'•'}</span>
+                <a
+                  href="https://wa.me/5562982720235?text=Oi Rafa! Gostaria de avisar sobre o presente que escolhi para vocês!"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-[#25D366] hover:text-[#1ebe5d] active:text-[#0da050] active:scale-95 transition-all duration-200 text-lg"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  <span className="font-light tracking-wide">Rafaela</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Grid com Endereco e PIX */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+              {/* Endereco de Entrega */}
+              <div className="p-6 lg:p-8 bg-[#5c4d46]/50 border border-[#cb9072]/30">
+                <div className="flex items-center gap-3 mb-4">
+                  <MapPin className="w-5 h-5 text-[#cb9072]" />
+                  <h4 className="text-lg font-light tracking-widest text-[#eec7b4]">ENDERECO DE ENTREGA</h4>
+                </div>
+                <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">
+                  Se preferir enviar o presente diretamente para nós, utilize o endereco abaixo:
+                </p>
+                <div className="p-4 bg-[#080a09] border border-[#cb9072]/30">
+                  <p className="text-sm text-[#f8f7f3] leading-relaxed">
+                    <span className="text-[#eec7b4] font-medium">Lucas Balbino Rocha</span>
+                    <br />
+                    Rua T-28, 1443 - Apto 1002
+                    <br />
+                    Setor Bueno
+                    <br />
+                    Goiania - GO
+                    <br />
+                    CEP: 74210-040
+                  </p>
+                </div>
+              </div>
+
+              {/* Chave PIX */}
+              <div className="p-6 lg:p-8 bg-[#5c4d46]/50 border border-[#cb9072]/30">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-[#cb9072] text-lg font-bold">$</span>
+                  <h4 className="text-lg font-light tracking-widest text-[#eec7b4]">CHAVE PIX</h4>
+                </div>
+                <p className="text-sm text-[#f8f7f3]/70 mb-4 leading-relaxed">
+                  Se preferir presentear com um valor em dinheiro, utilize nossa chave PIX:
+                </p>
+                <div className="p-4 bg-[#080a09] border border-[#cb9072]/30">
+                  <p className="text-xs text-[#f8f7f3]/50 mb-2">Chave PIX (aleatoria):</p>
+                  <p className="text-sm text-[#eec7b4] font-mono break-all leading-relaxed">
+                    eac0ac2b-4f4b-4e11-8a7b-342d96061aee
+                  </p>
+                  <p className="text-xs text-[#f8f7f3]/50 mt-2">
+                    Titular: <span className="text-[#f8f7f3]/70">Rafaela Teixeira Alvares</span>
+                  </p>
+                  <Button
+                    variant="outline"
+                    onClick={handleCopyPix}
+                    className="w-full mt-4 border border-[#cb9072] text-[#eec7b4] text-xs hover:bg-[#cb9072] hover:text-[#080a09] bg-transparent rounded-none transition-all duration-200 active:scale-95"
+                  >
+                    {copiedPix ? (
+                      <span className="flex items-center gap-2"><Check className="w-3 h-3" /> Copiado!</span>
+                    ) : (
+                      <span className="flex items-center gap-2"><Copy className="w-3 h-3" /> Copiar Chave PIX</span>
+                    )}
+                  </Button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
