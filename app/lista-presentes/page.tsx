@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Slider } from "@/components/ui/slider"
-import { Loader2, MessageCircle, ArrowLeft } from "lucide-react"
+import { Loader2, MessageCircle, ArrowLeft, ExternalLink, Store } from "lucide-react"
 
 interface HouseGift {
   id: string
@@ -299,6 +299,14 @@ export default function ListaPresentesPage() {
   const [selectedGift, setSelectedGift] = useState<HouseGift | HoneymoonGift | null>(null)
   const [giftType, setGiftType] = useState<"house" | "honeymoon">("house")
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isStoreListOpen, setIsStoreListOpen] = useState(false)
+
+  const storeLinks = [
+    { name: "Amazon", url: "https://www.amazon.com.br/hz/wishlist/ls/38YMI2OGRB0BJ?ref_=wl_share" },
+    { name: "Casas Bahia", url: "https://listadecasamento.casasbahia.com.br/rafaelaelucas" },
+    { name: "Camicado", url: "https://www.camicado.com.br/lista/rafaelaelucas" },
+    { name: "Casa Goianita", url: "https://www.casagoianita.com.br" },
+  ]
 
   const handleSelectGift = (gift: HouseGift | HoneymoonGift, type: "house" | "honeymoon") => {
     if ("isSelected" in gift && gift.isSelected) return
@@ -633,6 +641,46 @@ export default function ListaPresentesPage() {
                   <p className="text-xs text-[#cb9072] mt-2">
                     {filteredHouseGifts.length} de {houseGifts.length} itens na faixa de preço selecionada
                   </p>
+                </div>
+
+                <div className="mb-8 flex justify-center">
+                  <Dialog open={isStoreListOpen} onOpenChange={setIsStoreListOpen}>
+                    <DialogTrigger asChild>
+                      <Button className="bg-[#eec7b4] text-[#080a09] hover:bg-[#cb9072] hover:text-[#f8f7f3] rounded-none px-8 py-3 flex items-center gap-2">
+                        <Store className="w-4 h-4" />
+                        Ver listas completas nas lojas
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-md bg-[#5c4d46] border-[#cb9072] text-[#f8f7f3] rounded-none">
+                      <DialogHeader>
+                        <DialogTitle className="text-xl tracking-wider text-[#eec7b4] text-center">
+                          LISTAS NAS LOJAS
+                        </DialogTitle>
+                      </DialogHeader>
+                      <p className="text-sm text-[#f8f7f3]/70 text-center leading-relaxed">
+                        Confira nossa lista completa de presentes diretamente nas lojas parceiras:
+                      </p>
+                      <div className="space-y-3 mt-4">
+                        {storeLinks.map((store) => (
+                          <a
+                            key={store.name}
+                            href={store.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block"
+                          >
+                            <Button
+                              variant="outline"
+                              className="w-full bg-transparent border border-[#cb9072] text-[#eec7b4] hover:bg-[#cb9072] hover:text-[#080a09] hover:border-[#eec7b4] active:bg-[#cb9072] active:scale-95 rounded-none transition-all duration-200 py-4 flex items-center justify-center gap-2"
+                            >
+                              <ExternalLink className="w-4 h-4" />
+                              {store.name}
+                            </Button>
+                          </a>
+                        ))}
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 </div>
 
                 {loading ? (
