@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Slider } from "@/components/ui/slider"
-import { Loader2, MessageCircle, ArrowLeft } from "lucide-react"
+import { Loader2, MessageCircle, ArrowLeft, ExternalLink, Store, MapPin, Copy, Check } from "lucide-react"
 
 interface HouseGift {
   id: string
@@ -299,6 +299,21 @@ export default function ListaPresentesPage() {
   const [selectedGift, setSelectedGift] = useState<HouseGift | HoneymoonGift | null>(null)
   const [giftType, setGiftType] = useState<"house" | "honeymoon">("house")
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isStoreListOpen, setIsStoreListOpen] = useState(false)
+  const [copiedPix, setCopiedPix] = useState(false)
+
+  const handleCopyPix = () => {
+    navigator.clipboard.writeText("eac0ac2b-4f4b-4e11-8a7b-342d96061aee")
+    setCopiedPix(true)
+    setTimeout(() => setCopiedPix(false), 2000)
+  }
+
+  const storeLinks = [
+    { name: "Amazon", url: "https://www.amazon.com.br/hz/wishlist/ls/38YMI2OGRB0BJ?ref_=wl_share" },
+    { name: "Casas Bahia", url: "https://listadecasamento.casasbahia.com.br/rafaelaelucas" },
+    { name: "Camicado", url: "https://www.camicado.com.br/lista/rafaelaelucas" },
+    { name: "Casa Goianita", url: "https://www.casagoianita.com.br" },
+  ]
 
   const handleSelectGift = (gift: HouseGift | HoneymoonGift, type: "house" | "honeymoon") => {
     if ("isSelected" in gift && gift.isSelected) return
@@ -635,6 +650,46 @@ export default function ListaPresentesPage() {
                   </p>
                 </div>
 
+                <div className="mb-8 flex justify-center">
+                  <Dialog open={isStoreListOpen} onOpenChange={setIsStoreListOpen}>
+                    <DialogTrigger asChild>
+                      <Button className="bg-[#eec7b4] text-[#080a09] hover:bg-[#cb9072] hover:text-[#f8f7f3] rounded-none px-8 py-3 flex items-center gap-2">
+                        <Store className="w-4 h-4" />
+                        Ver listas completas nas lojas
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-md bg-[#5c4d46] border-[#cb9072] text-[#f8f7f3] rounded-none">
+                      <DialogHeader>
+                        <DialogTitle className="text-xl tracking-wider text-[#eec7b4] text-center">
+                          LISTAS NAS LOJAS
+                        </DialogTitle>
+                      </DialogHeader>
+                      <p className="text-sm text-[#f8f7f3]/70 text-center leading-relaxed">
+                        Confira nossa lista completa de presentes diretamente nas lojas parceiras:
+                      </p>
+                      <div className="space-y-3 mt-4">
+                        {storeLinks.map((store) => (
+                          <a
+                            key={store.name}
+                            href={store.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block"
+                          >
+                            <Button
+                              variant="outline"
+                              className="w-full bg-transparent border border-[#cb9072] text-[#eec7b4] hover:bg-[#cb9072] hover:text-[#080a09] hover:border-[#eec7b4] active:bg-[#cb9072] active:scale-95 rounded-none transition-all duration-200 py-4 flex items-center justify-center gap-2"
+                            >
+                              <ExternalLink className="w-4 h-4" />
+                              {store.name}
+                            </Button>
+                          </a>
+                        ))}
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+
                 {loading ? (
                   <div className="flex items-center justify-center py-12">
                     <Loader2 className="h-8 w-8 animate-spin text-[#eec7b4]" />
@@ -933,6 +988,100 @@ export default function ListaPresentesPage() {
               </section>
             </TabsContent>
           </Tabs>
+
+          {/* Secao Endereco de Entrega e PIX */}
+          <div className="mt-10 border-t border-[#5c4d46]/30 pt-8 space-y-6">
+
+            {/* Aviso WhatsApp */}
+            <div className="text-center">
+              <p className="text-sm font-light tracking-wider text-[#eec7b4]/80 mb-2">
+                Nos avise que vai dar este presente!
+              </p>
+              <p className="text-xs text-[#f8f7f3]/50 leading-relaxed max-w-md mx-auto mb-3">
+                Envie uma mensagem pelo WhatsApp informando qual presente escolheu. Assim evitamos presentes repetidos :)
+              </p>
+              <div className="flex items-center justify-center gap-3">
+                <a
+                  href="https://wa.me/5562991639973?text=Oi%20Lucas!%20Escolhi%20um%20presente%20para%20voc%C3%AAs%20e%20gostaria%20de%20avisar.%20O%20presente%20%C3%A9:%20"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-[#f8f7f3]/60 hover:text-[#25D366] transition-colors text-sm"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span className="font-light">Lucas</span>
+                </a>
+                <span className="text-[#f8f7f3]/20">{'|'}</span>
+                <a
+                  href="https://wa.me/5562982720235?text=Oi%20Rafa!%20Escolhi%20um%20presente%20para%20voc%C3%AAs%20e%20gostaria%20de%20avisar.%20O%20presente%20%C3%A9:%20"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-[#f8f7f3]/60 hover:text-[#25D366] transition-colors text-sm"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span className="font-light">Rafaela</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Grid com Endereco e PIX */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+              {/* Endereco de Entrega */}
+              <div className="p-4 lg:p-5 border border-[#5c4d46]/30">
+                <div className="flex items-center gap-2 mb-2">
+                  <MapPin className="w-3.5 h-3.5 text-[#cb9072]/70" />
+                  <h4 className="text-xs font-light tracking-widest text-[#eec7b4]/70 uppercase">Endereco de entrega</h4>
+                </div>
+                <p className="text-xs text-[#f8f7f3]/40 mb-3 leading-relaxed">
+                  Para enviar o presente diretamente:
+                </p>
+                <div className="p-3 bg-[#080a09]/50 border border-[#5c4d46]/20">
+                  <p className="text-xs text-[#f8f7f3]/70 leading-relaxed">
+                    <span className="text-[#eec7b4]/80">Lucas Balbino Rocha</span>
+                    <br />
+                    Rua T-28, 1443 - Apto 1002
+                    <br />
+                    Setor Bueno - Goiania/GO
+                    <br />
+                    CEP: 74210-040
+                  </p>
+                </div>
+              </div>
+
+              {/* Chave PIX */}
+              <div className="p-4 lg:p-5 border border-[#5c4d46]/30">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-[#cb9072]/70 text-xs font-bold">$</span>
+                  <h4 className="text-xs font-light tracking-widest text-[#eec7b4]/70 uppercase">Chave PIX</h4>
+                </div>
+                <p className="text-xs text-[#f8f7f3]/40 mb-3 leading-relaxed">
+                  Para presentear com um valor em dinheiro:
+                </p>
+                <div className="p-3 bg-[#080a09]/50 border border-[#5c4d46]/20">
+                  <p className="text-[10px] text-[#f8f7f3]/30 mb-1">Chave aleatoria:</p>
+                  <p className="text-xs text-[#eec7b4]/70 font-mono break-all leading-relaxed">
+                    eac0ac2b-4f4b-4e11-8a7b-342d96061aee
+                  </p>
+                  <p className="text-[10px] text-[#f8f7f3]/30 mt-1.5">
+                    Titular: <span className="text-[#f8f7f3]/50">Rafaela Teixeira Alvares</span>
+                  </p>
+                  <Button
+                    variant="outline"
+                    onClick={handleCopyPix}
+                    className="w-full mt-3 border border-[#5c4d46]/30 text-[#eec7b4]/60 text-[10px] hover:bg-[#5c4d46]/30 hover:text-[#eec7b4] bg-transparent rounded-none transition-all duration-200 active:scale-95 py-1.5"
+                  >
+                    {copiedPix ? (
+                      <span className="flex items-center gap-1.5"><Check className="w-3 h-3" /> Copiado!</span>
+                    ) : (
+                      <span className="flex items-center gap-1.5"><Copy className="w-3 h-3" /> Copiar chave</span>
+                    )}
+                  </Button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
