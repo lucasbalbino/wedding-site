@@ -313,7 +313,7 @@ export default function ListaPresentesPage() {
     { name: "Casas Bahia", url: "https://listas.casasbahia.com.br/rafaelalucas2026" },
     { name: "Camicado", url: "https://www.camicado.com.br/lista/convidado/rafaelalucas" },
     { name: "Casa Goianita", url: "https://www.casagoianita.com.br/wishlist/#/list/balbinolucas-d7f5ac/7c0e366b36c5ba61" },
-    { name: "LDA Utilidades (André e Thani)", url: "https://www.casagoianita.com.br/wishlist/#/list/balbinolucas-d7f5ac/7c0e366b36c5ba61" }
+    { name: "LDA Utilidades (Thani e André)", url: "https://www.casagoianita.com.br/wishlist/#/list/balbinolucas-d7f5ac/7c0e366b36c5ba61" }
   ]
 
   const handleSelectGift = (gift: HouseGift | HoneymoonGift, type: "house" | "honeymoon") => {
