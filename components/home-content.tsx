@@ -143,6 +143,8 @@ export function HomeContent() {
           </p>
 
           <p className="font-sans text-sm md:text-base lg:text-lg tracking-[0.1em] font-light mb-4">20.04.26</p>
+
+          <p className="font-sans text-sm md:text-base lg:text-lg tracking-[0.1em] font-light mb-4">16:00 </p>
         </div>
       </div>
 
