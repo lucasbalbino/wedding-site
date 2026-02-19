@@ -996,10 +996,10 @@ export default function ListaPresentesPage() {
             {/* Aviso WhatsApp */}
             <div className="text-center">
               <h3 className="text-xl lg:text-2xl font-light tracking-widest text-[#eec7b4] mb-4">
-                NOS AVISE QUE VAI DAR ESTE PRESENTE!
+                NOS AVISE QUE ITEM VAI NOS PRESENTEAR!
               </h3>
               <p className="text-sm lg:text-base text-[#f8f7f3]/70 leading-relaxed max-w-lg mx-auto mb-6">
-                Basta clicar nos links abaixo e enviar uma mensagem de WhatsApp direto para o Lucas ou para a Rafaela:
+                Para avisar, basta clicar nos links abaixo e enviar uma mensagem de WhatsApp direto para o Lucas ou para a Rafaela:
               </p>
               <div className="flex items-center justify-center gap-4">
                 <a
@@ -1038,15 +1038,15 @@ export default function ListaPresentesPage() {
                 </p>
                 <div className="p-4 bg-[#080a09] border border-[#cb9072]/30">
                   <p className="text-sm text-[#f8f7f3] leading-relaxed">
-                    <span className="text-[#eec7b4] font-medium">Lucas Balbino Rocha</span>
+                    <span className="text-[#eec7b4] font-medium">Lucas Balbino</span>
                     <br />
-                    Rua T-28, 1443 - Apto 1002
+                    Rua T-29, 243
                     <br />
                     Setor Bueno
                     <br />
                     Goiania - GO
                     <br />
-                    CEP: 74210-040
+                    CEP: 74210-050
                   </p>
                 </div>
               </div>
